@@ -24,13 +24,17 @@ const ICONS = {
   honor: "M12 3l8 3v5c0 5-3.4 8.2-8 10-4.6-1.8-8-5-8-10V6zM8 12l3 3 5-6",
   gateway: "M4 6c0 7 7 14 14 14l2-4-4-2-2 2c-2.5-1-5-3.5-6-6l2-2-2-4z",
   peak: "M12 3l2.4 6.3L21 12l-6.6 2.7L12 21l-2.4-6.3L3 12l6.6-2.7z",
+  roadmap: "M4 19V5M4 5h11l-2 4 2 4H4",
   puzzle: "M4 5h4a1 1 0 0 1 1 1v2a2 2 0 0 0 4 0V6a1 1 0 0 1 1-1h4v4h-2a2 2 0 0 0 0 4h2v4h-4a1 1 0 0 1-1-1v-2a2 2 0 0 0-4 0v2a1 1 0 0 1-1 1H4z",
 } as const;
 
 const CATEGORIES = [
   {
     title: "OPERATIONS",
-    items: [{ href: "/dashboard", label: "Command Center", icon: ICONS.dashboard }],
+    items: [
+      { href: "/dashboard", label: "Command Center", icon: ICONS.dashboard },
+      { href: "/roadmap", label: "Roadmap", icon: ICONS.roadmap },
+    ],
   },
   {
     title: "HONOR",

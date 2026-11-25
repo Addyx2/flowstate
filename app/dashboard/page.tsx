@@ -1,11 +1,11 @@
-import { readinessLabel } from "@/lib/compliance";
+import { regulatedFunctions } from "@/lib/features";
 
 export default function Dashboard() {
   const stats = [
     { label: "HANDLED TODAY", value: "—" },
     { label: "ACTIVE CALLS", value: "—" },
-    { label: "DOC FROM AGENTS", value: "—" },
-    { label: readinessLabel(), value: "—" },
+    { label: "ENQUIRIES CAPTURED", value: "—" },
+    { label: "CHORALS SENT", value: "—" },
   ];
 
   return (
@@ -41,6 +41,16 @@ export default function Dashboard() {
         <div className="border border-dashed border-[#2a2a2a] p-8 text-center text-[#a0a0a0] font-mono text-xs">
           DATABASE UNCONNECTED — ADD VERIFIED POSTGRES — VOICE AGENT PENDING
         </div>
+
+        <a href="/roadmap" className="block border border-[#2a2a2a] bg-[#111111] p-6 mt-4 hover:border-[#ffb800] transition-colors">
+          <div className="font-mono text-[10px] text-[#ffb800] mb-2">
+            PUSHED FORWARD — {regulatedFunctions().length} CQC-REGULATED FUNCTIONS
+          </div>
+          <p className="text-sm text-[#a0a0a0]">
+            Care plans, visit scheduling, care notes, eMAR, triage and safeguarding arrive in the
+            regulated phase. See the roadmap.
+          </p>
+        </a>
       </div>
     </main>
   );

@@ -23,21 +23,30 @@ AULTRUM (company · manifesto · Aultrum Layers — the moat)
       └── TENDER  (future)  family & friends caregiving — social app
 ```
 
-## Regulatory stance — no CQC constraint
+## Phasing — CQC-regulated functions pushed forward
 
-Flowstate's core is **regulator-agnostic**. No module, route, data field, or
-workflow assumes the user is a CQC-registered provider. That means Flowstate
-works for:
+**Phase 1 (launch) ships non-regulated functions only**, so Flowstate can go
+live with no CQC registration: Honor (Live CV, references, chorals, tiers,
+multi-job, training), Gateway (call answering, enquiry capture, call-back
+booking), Peak (points & perks), and the operations dashboard.
 
-- regulated agencies anywhere (England, Scotland, Wales, NI, or abroad),
-- unregulated settings — private/self-employed carers, introductory agencies,
-  community groups, and family caregivers (TENDER),
-- organisations outside the UK entirely.
+**Phase 2 (regulated)** holds every function that delivers, directs, or records
+personal care or treatment. These are not built until the operator is CQC
+registered for the relevant regulated activity:
 
-Regulator support is an **optional overlay** (`lib/compliance.ts`), off by
-default (`FLOWSTATE_COMPLIANCE_FRAMEWORK=none`). Opting in only changes labels
-and, later, report formats — never what the core can do. The default dashboard
-metric is a generic **AUDIT READY** audit trail.
+| Deferred function | Why it is regulated |
+|-------------------|---------------------|
+| Care plans & needs assessments | Planning personal care |
+| Care visit scheduling & task lists | Directing care delivery |
+| Daily care notes / AI care documentation | Provider care records |
+| eMAR (medication records) | Medication support |
+| Urgent / clinical triage by voice | Health advice — Phase 1 routes to 999 / NHS 111 |
+| Incident & safeguarding reporting | Provider statutory notifications |
+| CQC readiness / inspection evidence | Only meaningful once registered |
+| Care-receiver health records | Health data held as a provider |
+
+The single source of truth is `lib/features.ts`; the in-app `/roadmap` page
+renders it.
 
 ## The "Apps inside a platform" model
 
@@ -63,7 +72,7 @@ proven and portable."
 | Tiers | Clubcard-style levels (Silver → Gold → Platinum) |
 | Multi-job | Manage 2–3 paid roles at once |
 | Training | Discounted growth links / marketplace |
-| Wage stream | EWA — ROADMAP (regulated, later) |
+| Wage stream | EWA — ROADMAP (FCA-regulated, later) |
 
 ## TENDER — (future) informal / family caregivers
 

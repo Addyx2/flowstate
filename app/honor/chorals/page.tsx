@@ -2,7 +2,7 @@ export default function HonorChorals() {
   const chorals = [
     { from: "Sarah M.", role: "Care Manager", message: "Thank you for covering the night shift at short notice. You're a lifesaver.", points: 25, time: "2h ago" },
     { from: "Mrs. Adeyemi", role: "Care Receiver", message: "You always make me feel so safe. Thank you for everything.", points: 50, time: "Yesterday" },
-    { from: "Daniel R.", role: "Care Manager", message: "Brilliant documentation this month. Audit-ready without a single ask.", points: 40, time: "2 days ago" },
+    { from: "Daniel R.", role: "Care Manager", message: "Thanks for mentoring the new starters this month. They all asked for you.", points: 40, time: "2 days ago" },
   ];
 
   return (

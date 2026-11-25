@@ -1,15 +1,16 @@
 -- Flowstate / Honor schema
 -- Run once in the Vercel Postgres SQL editor (or via a migration).
 
--- Organisations: agencies, employers, community groups, families.
--- Regulation is OPTIONAL: compliance_framework NULL means no regulator.
--- Nothing in Flowstate requires an organisation to be CQC (or any) registered.
+-- LAUNCH SCOPE: non-regulated functions only.
+-- CQC-regulated data (care plans, visits/tasks, care notes, eMAR, incidents,
+-- care-receiver health records) is PUSHED FORWARD to Phase 2 and has no tables
+-- here. See lib/features.ts and docs/architecture.md.
+
+-- Organisations: agencies, employers, community groups.
 CREATE TABLE IF NOT EXISTS organisations (
   id SERIAL PRIMARY KEY,
   name TEXT NOT NULL,
-  kind TEXT DEFAULT 'provider',      -- provider | employer | community | family
-  compliance_framework TEXT,         -- NULL | 'cqc' | 'care-inspectorate' | 'ciw' | 'rqia'
-  registration_ref TEXT,             -- optional regulator registration number
+  kind TEXT DEFAULT 'provider',      -- provider | employer | community
   created_at TIMESTAMPTZ DEFAULT now()
 );
 

@@ -27,12 +27,12 @@ lib/db.ts             → Vercel Postgres helpers
 2. `npm install`
 3. `npm run dev`
 
-## Regulation
+## Phasing (CQC)
 
-Flowstate has no CQC dependency. It runs regulator-agnostic by default;
-set `FLOWSTATE_COMPLIANCE_FRAMEWORK` (`cqc`, `care-inspectorate`, `ciw`, `rqia`)
-only if an organisation wants regulator-specific labelling. See
-`docs/architecture.md`.
+Phase 1 ships only functions that need no CQC registration. CQC-regulated
+functions (care plans, visit scheduling, care notes, eMAR, clinical triage,
+safeguarding) are pushed forward to Phase 2. See `lib/features.ts`, the
+`/roadmap` page, and `docs/architecture.md`.
 
 ## Telephony webhook (Twilio)
 
