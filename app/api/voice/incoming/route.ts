@@ -23,7 +23,7 @@ export async function POST(request: Request) {
 
   const twiml = `<?xml version="1.0" encoding="UTF-8"?>
 <Response>
-  <Say voice="alice" language="en-GB">Thank you for calling Flowstate. I can help with care bookings, queries, or urgent assistance. Please tell me how I can help.</Say>
+  <Say voice="alice" language="en-GB">Thank you for calling Flowstate. If this is an emergency, please hang up and call 999. Otherwise, I can take your enquiry or book a call-back. How can I help?</Say>
   <Gather input="speech" speechTimeout="auto" language="en-GB" action="/api/voice/handle">
     <Pause length="3"/>
   </Gather>
