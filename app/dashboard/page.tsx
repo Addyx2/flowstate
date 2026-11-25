@@ -1,9 +1,11 @@
+import { readinessLabel } from "@/lib/compliance";
+
 export default function Dashboard() {
   const stats = [
     { label: "HANDLED TODAY", value: "—" },
     { label: "ACTIVE CALLS", value: "—" },
     { label: "DOC FROM AGENTS", value: "—" },
-    { label: "CQC READY", value: "—" },
+    { label: readinessLabel(), value: "—" },
   ];
 
   return (

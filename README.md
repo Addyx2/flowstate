@@ -27,6 +27,13 @@ lib/db.ts             → Vercel Postgres helpers
 2. `npm install`
 3. `npm run dev`
 
+## Regulation
+
+Flowstate has no CQC dependency. It runs regulator-agnostic by default;
+set `FLOWSTATE_COMPLIANCE_FRAMEWORK` (`cqc`, `care-inspectorate`, `ciw`, `rqia`)
+only if an organisation wants regulator-specific labelling. See
+`docs/architecture.md`.
+
 ## Telephony webhook (Twilio)
 
 Point your Twilio number's "A CALL COMES IN" webhook to:

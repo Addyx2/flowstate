@@ -23,6 +23,22 @@ AULTRUM (company · manifesto · Aultrum Layers — the moat)
       └── TENDER  (future)  family & friends caregiving — social app
 ```
 
+## Regulatory stance — no CQC constraint
+
+Flowstate's core is **regulator-agnostic**. No module, route, data field, or
+workflow assumes the user is a CQC-registered provider. That means Flowstate
+works for:
+
+- regulated agencies anywhere (England, Scotland, Wales, NI, or abroad),
+- unregulated settings — private/self-employed carers, introductory agencies,
+  community groups, and family caregivers (TENDER),
+- organisations outside the UK entirely.
+
+Regulator support is an **optional overlay** (`lib/compliance.ts`), off by
+default (`FLOWSTATE_COMPLIANCE_FRAMEWORK=none`). Opting in only changes labels
+and, later, report formats — never what the core can do. The default dashboard
+metric is a generic **AUDIT READY** audit trail.
+
 ## The "Apps inside a platform" model
 
 Just as Outlook bundles Mail + Calendar + Contacts, **Flowstate bundles modules**.

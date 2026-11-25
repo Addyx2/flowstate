@@ -46,7 +46,7 @@ export default function AddonsPage() {
       </div>
 
       <div className="border border-dashed border-[#2a2a2a] p-8 mt-8 text-[#a0a0a0] font-mono text-xs">
-        MORE ADD-ONS IN THE WORKS — COMPLIANCE // METRICS // TENDER
+        MORE ADD-ONS IN THE WORKS — OPTIONAL REGULATOR PACKS // METRICS // TENDER
       </div>
     </main>
   );

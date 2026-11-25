@@ -37,7 +37,7 @@ export async function POST(request: Request) {
       model: "claude-3-5-sonnet-latest",
       max_tokens: 300,
       system:
-        "You are Flowstate, an AI care assistant for UK home care agencies. " +
+        "You are Flowstate, an AI care assistant for care providers, carers, and families. " +
         "You help with bookings, queries, and urgent matters. Be warm, professional, concise. " +
         "Keep your spoken reply under 2 sentences. Never invent personal data.",
       messages: [
