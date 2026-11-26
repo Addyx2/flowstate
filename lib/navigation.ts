@@ -111,7 +111,7 @@ export const NAVIGATION: NavSection[] = [
     items: [
       { href: "/account/settings", label: "Settings", purpose: "Agency settings." },
       { href: "/account/integrations", label: "Integrations", purpose: "Connected systems and APIs." },
-      { href: "/account/organisation", label: "Organisation", purpose: "Your organisation's details, team and roles." },
+      { href: "/account/organisation", label: "Organisation", purpose: "Your organisation's name, and who can sign in and as what.", built: true },
       { href: "/account/links", label: "Links", purpose: "Publish anything as a link: a shift request to an agency, a carer invite, a praise link for a family, and more.", built: true },
     ],
   },

@@ -16,18 +16,21 @@ export function LinkMaker({
   submit,
   children,
   className,
+  quiet = false,
 }: {
   action: (prev: LinkState, formData: FormData) => Promise<LinkState>;
   submit: string;
   children?: React.ReactNode;
   className?: string;
+  /** A small text button, for use inside tables. */
+  quiet?: boolean;
 }) {
   const [state, formAction, pending] = useActionState(action, {});
   const [copied, setCopied] = useState(false);
   return (
     <form action={formAction} className={cn("space-y-2", className)}>
       {children}
-      <button type="submit" disabled={pending} className={children ? buttonClass : ghostButtonClass}>
+      <button type="submit" disabled={pending} className={quiet ? "text-[12px] text-accent hover:underline disabled:opacity-50" : children ? buttonClass : ghostButtonClass}>
         {pending ? "Making…" : submit}
       </button>
       {state.error ? <p className="text-sm text-bad">{state.error}</p> : null}

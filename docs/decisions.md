@@ -141,3 +141,12 @@ Tokens live in `app/globals.css` (`@theme`); pages use token classes
 reference layout the founder shared; no other product's name or branding is
 used. Charts never rank carers (Peak fairness rules). `docs/design/` designs
 refine this as they arrive.
+
+### D22 — Organisation: admins manage who signs in (27 Nov 2026)
+Account → Organisation lets an admin rename the organisation, add coordinators
+and admins by email, change roles and remove access. New people get a one-time
+set-password link (72 hours, stored hashed) for the admin to send; that
+password is what Aultrum ID asks for once when they link. Role changes and
+removals sign the person out everywhere; an organisation always keeps one
+active admin, and no one can remove themselves. Carers are not managed here
+(they join through the Aultrum carer app, D10).

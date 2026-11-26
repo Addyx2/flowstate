@@ -119,6 +119,9 @@ model User {
   lockedUntil      DateTime?
   lastLoginAt      DateTime?
   deactivatedAt    DateTime?
+  /// One-time "set your password" link, stored only as a hash.
+  passwordTokenHash   String?   @unique
+  passwordTokenExpAt  DateTime?
   createdAt        DateTime  @default(now())
 
   carer Carer?

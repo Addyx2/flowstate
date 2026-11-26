@@ -20,6 +20,7 @@ Core (D18 step 1) is built and runs against Postgres with a demo seed.
 | Links | `/account/links`, `/l/[token]`, `lib/links.ts` | **Done** — praise, shift request (agency answers), carer invite (needs Aultrum ID) |
 | Carer API v1 | `app/api/carer/v1/*`, `lib/carer/*` | **Done** — matches the shared contract; Flowstate is an Aultrum app connector (D20) |
 | Assist | `/persona/assist`, `lib/assist.ts`, `app/api/assist` | **Done** — needs `ANTHROPIC_API_KEY`; proposals wait for confirmation |
+| Organisation | `/account/organisation`, `lib/password.ts`, `/login/set-password` | **Done** (D22) — add people, roles, remove access, set-password links |
 | Pushbots, Associate | `/persona/*` | Placeholder (D18 step 3) |
 | Office, Supply | `/office/*`, `/supply/*` | Placeholder (D18 step 2) |
 | Elements | `/elements/*` | Marketing pages; not connected to Canvas yet |
@@ -38,7 +39,7 @@ Core (D18 step 1) is built and runs against Postgres with a demo seed.
 
 ## Next
 
-1. **Merge the Aultrum ID registration** (`aultrum-id`, branch `claude/flowstate-no-cqc-w3j841`) and deploy it.
+1. **Merge the Aultrum ID registration** — done: merged and live (aultrum-id #15, #16).
 2. **Merge to `main`** to put Flowstate on `flowstate.aultrum.co.uk` (shares the same database).
 3. **Designs** (D11) refine the screens as they arrive in `docs/design/`.
 4. **Office and Supply** (D18 step 2), then **Associate** and Pushbots (step 3).
@@ -63,6 +64,7 @@ Core (D18 step 1) is built and runs against Postgres with a demo seed.
 | Date | Tool | Branch | Summary |
 |---|---|---|---|
 | 27 Aug – 1 Oct 2026 | — | `main` | Scaffold: Next.js app, voice webhook, Honor module, add-ons sidebar |
+| 27 Nov 2026 | Claude Code (cloud) | `claude/flowstate-no-cqc-w3j841` → `main` | Organisation page (D22): team, roles, set-password links for Aultrum ID linking |
 | 27 Nov 2026 | Claude Code (cloud) | `claude/flowstate-no-cqc-w3j841` → `main` | Redesign (D21): warm editorial look, new Watchboard charts; merged to main |
 | 26 Nov 2026 | Claude Code (cloud) | `claude/flowstate-no-cqc-w3j841` | Deployed preview on Vercel with a new Neon database (London); fresh AUTH_SECRET |
 | 26 Nov 2026 | Claude Code (cloud) | `claude/flowstate-no-cqc-w3j841` | D20: registered Flowstate in Aultrum ID (aultrum-id branch); postcodes.io kept; praise only for involved parties |
