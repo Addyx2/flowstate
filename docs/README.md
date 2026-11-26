@@ -11,7 +11,7 @@ detail, so every tool can see it.
 | [scope.md](scope.md) | Where the CQC / care-record line is | A feature is added near the line |
 | [status.md](status.md) | What's built, what's mock, what's next, session log | **Every session** |
 | [decisions.md](decisions.md) | What was decided, when, why | A decision is made |
-| [spec/](spec/) | One spec per function; code follows these | Before a function is built or changed |
+| [spec/](spec/) | One spec per function (`navigation.md`, `persona.md`); code follows these | Before a function is built or changed |
 | [design/](design/README.md) | Wireframes, concept theory, references, Paper designs | New design work arrives |
 | [ecosystem.md](ecosystem.md) | How Flowstate fits with Pleasant, Aultrum ID, the carer app and Canvas | A dependency changes |
 | [archive/](archive/) | Superseded docs, kept for history | Never edited |

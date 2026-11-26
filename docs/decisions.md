@@ -64,3 +64,10 @@ replaces the Dashboard. Payroll and Invoice are part of Flowstate. Spec:
   systems and showing which packages are attainable.
 - **Elements** holds Gateway and Peak as add-ons (run on Canvas).
 - **Account**: Settings, Integrations, Organisation, Links.
+
+### D14 — Persona: Flowstate's AI functions (26 Nov 2026)
+New **Persona** section: **Assist**, **Pushbots**, **Qualifiers** (own page) and
+**Associate** (routines, directives, qualifying Packages or workforces). The
+Watchboard shows the Qualifiers as sliding cards, one per Aultrum Layer, each
+listing what's flagged. Every AI function confirms before changing anything and
+scores the work, never the person receiving care. Spec: `spec/persona.md`.

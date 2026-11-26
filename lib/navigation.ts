@@ -53,7 +53,17 @@ export const NAVIGATION: NavSection[] = [
     title: "Watchboard",
     icon: "M3 4h7v7H3zM14 4h7v12h-7zM3 13h7v7H3zM14 17h7v3h-7z",
     href: "/watchboard",
-    purpose: "The important parts of every feature, in one view.",
+    purpose: "The important parts of every feature, in one view, with the Qualifiers as cards.",
+  },
+  {
+    title: "Persona",
+    icon: "M12 3l1.9 5.1L19 10l-5.1 1.9L12 17l-1.9-5.1L5 10l5.1-1.9zM19 15l.8 2.2L22 18l-2.2.8L19 21l-.8-2.2L16 18l2.2-.8z",
+    items: [
+      { href: "/persona/assist", label: "Assist", purpose: "Ask about your agency or get work done. Every change waits for your confirmation." },
+      { href: "/persona/pushbots", label: "Pushbots", purpose: "Your agency's number that carers and office staff text." },
+      { href: "/persona/qualifiers", label: "Qualifiers", purpose: "Each Aultrum Layer in full: scores, what's flagged and why." },
+      { href: "/persona/associate", label: "Associate", purpose: "Routines, directives, and qualifying Packages or workforces." },
+    ],
   },
   {
     title: "Admin",

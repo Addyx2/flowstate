@@ -1,6 +1,6 @@
 # Spec — coordinator sidebar
 
-_Source: 26 Nov 2026 (D12, D13). Code: `lib/navigation.ts` renders
+_Source: 26 Nov 2026 (D12, D13, D14). Code: `lib/navigation.ts` renders
 this; if they differ, this file wins._
 
 Carers don't see this: they use the Aultrum carer app (D10).
@@ -18,7 +18,11 @@ Carers don't see this: they use the Aultrum carer app (D10).
 | | Request | `/shifts/requests` | Requests from carers: shifts they want, swaps, time off |
 | **Supply** | Request | `/supply/request` | Request workforce from supply agencies — agencies on **Pleasant** (via Pleasant's Supply API), and agencies the provider adds to its own **Preferred Supply List** |
 | | Manage | `/supply/manage` | Requests made, agency workers booked, their timesheets |
-| **Watchboard** | — | `/watchboard` | The important parts of every feature, in one view |
+| **Watchboard** | — | `/watchboard` | The important parts of every feature, in one view. Includes the **Qualifiers as sliding cards**, one per Aultrum Layer, each listing what's flagged (`spec/persona.md`) |
+| **Persona** | Assist | `/persona/assist` | AI assistant that answers and does work, with confirmation |
+| | Pushbots | `/persona/pushbots` | The agency's texting bot for carers and office staff |
+| | Qualifiers | `/persona/qualifiers` | Each Aultrum Layer in full: scores, flags and reasons |
+| | Associate | `/persona/associate` | Routines, directives, and qualifying Packages or workforces |
 | **Admin** | Payroll | `/admin/payroll` | Pay the agency's own carers |
 | | Invoice | `/admin/invoices` | **Two directions:** (1) invoices *from* supply agencies; (2) invoices *to* councils and clients, generated from Packages |
 | | Bid | `/admin/bids` | Bid for hospital-discharge packages (Tender, inside Flowstate). Connects to commissioners' APIs and shows **what's attainable**: which packages the agency can realistically cover with its carers, area and hours |
@@ -45,6 +49,8 @@ show their items underneath. `/elements` is the hub for all Elements.
 - **Invoices from Packages** use hours and rates only, never care detail.
 
 ## Open questions
+
+0. Persona's position in the sidebar (after Watchboard for now) — see `spec/persona.md`.
 
 1. Which commissioner APIs does Bid connect to first (a council brokerage portal, an NHS trust, a named system)?
 2. `/roadmap` and `/honor` are not in the sidebar — keep, move or remove?

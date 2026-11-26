@@ -9,7 +9,7 @@ Everything below is a **UI mock-up with hardcoded sample data** unless marked.
 | Area | Path | State |
 |---|---|---|
 | Home (module links) | `app/page.tsx` | Mock |
-| Sidebar (D12) | `docs/spec/navigation.md`, `lib/navigation.ts`, `components/AppSidebar.tsx` | **Done** — Workforce, Shifts, Supply, Watchboard, Admin, Elements, Account (D12, D13). Unbuilt pages are a "Not built yet" placeholder (`app/(app)/[...slug]`). `/dashboard` redirects to `/watchboard` |
+| Sidebar (D12) | `docs/spec/navigation.md`, `lib/navigation.ts`, `components/AppSidebar.tsx` | **Done** — Workforce, Shifts, Supply, Watchboard, Persona, Admin, Elements, Account (D12–D14). Unbuilt pages are a "Not built yet" placeholder (`app/(app)/[...slug]`). `/dashboard` redirects to `/watchboard` |
 | Honor: home, Live CV, Chorals, My Jobs | `app/honor/*` | Mock (one sample carer). **Not in brief v1.3** — see open questions |
 | Elements: Gateway, Peak, hub | `app/(app)/elements/*` | Marketing copy only; no Canvas connection. `/addons` redirects to `/elements` |
 | Roadmap | `app/(app)/roadmap/page.tsx`, `lib/features.ts` | Renders launch vs out-of-scope functions |
@@ -35,6 +35,8 @@ software references → Paper designs, into `docs/design/`. Then:
 
 ## Open questions
 
+- Persona: which Aultrum Layers show on the Watchboard in v1; Persona's sidebar position; who sets directives (`spec/persona.md`).
+
 - Sidebar: two remaining questions in `spec/navigation.md` (which commissioner APIs Bid connects to first; keep/remove `/roadmap` and `/honor`).
 
 - Copy Pleasant's code and adapt it, or rebuild fresh to the brief?
@@ -48,6 +50,7 @@ software references → Paper designs, into `docs/design/`. Then:
 | Date | Tool | Branch | Summary |
 |---|---|---|---|
 | 27 Aug – 1 Oct 2026 | — | `main` | Scaffold: Next.js app, voice webhook, Honor module, add-ons sidebar |
+| 26 Nov 2026 | Claude Code (cloud) | `claude/flowstate-no-cqc-w3j841` | Persona section (D14): Assist, Pushbots, Qualifiers, Associate; Qualifier cards on Watchboard; `spec/persona.md` |
 | 26 Nov 2026 | Claude Code (cloud) | `claude/flowstate-no-cqc-w3j841` | Sidebar answers recorded (D13): Package = care receiver or care home; Elements (Gateway, Peak) and Account sections; add-ons moved to `/elements` |
 | 26 Nov 2026 | Claude Code (cloud) | `claude/flowstate-no-cqc-w3j841` | Sidebar structure (D12): spec, `lib/navigation.ts`, placeholders; Dashboard → Watchboard |
 | 25 Nov 2026 | Claude Code (cloud) | `claude/flowstate-no-cqc-w3j841` | Recorded D10 (shared carer app) and D11 (design first); added `docs/design/` intake. Earlier: removed CQC claims; added `lib/features.ts` + `/roadmap`; voice agent 999/111 routing; created `AGENTS.md` and `docs/` |
