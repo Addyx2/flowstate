@@ -34,7 +34,11 @@ test("tool definitions are strict-ready", () => {
 
 test("Assist looks up, proposes, and changes nothing until confirmed", { skip }, async () => {
   const user = await prisma.user.findFirstOrThrow({ where: { email: "admin@flowstate.demo" } });
-  const open = await prisma.shift.findFirstOrThrow({ where: { agencyId: user.agencyId, status: "OPEN", startAt: { gt: new Date() } }, orderBy: { startAt: "asc" } });
+  // Its own open shift at a quiet time, so the test doesn't depend on the demo rota.
+  const pkg = await prisma.package.findFirstOrThrow({ where: { agencyId: user.agencyId, name: "Mrs A." } });
+  const start = new Date(Date.now() + 20 * 86_400_000);
+  start.setHours(13, 0, 0, 0);
+  const open = await prisma.shift.create({ data: { agencyId: user.agencyId, packageId: pkg.id, startAt: start, endAt: new Date(start.getTime() + 3_600_000), status: "OPEN" } });
   const { client, seen } = fakeClient([
     () => ({ stop_reason: "tool_use", content: [{ type: "text", text: "Let me look." }, toolUse("t1", "list_open_shifts", {}), toolUse("t2", "suggest_carers", { shiftId: open.id })] }),
     (req) => {
@@ -61,7 +65,7 @@ test("Assist looks up, proposes, and changes nothing until confirmed", { skip },
   assert.equal(result.ok, true, JSON.stringify(result));
   assert.equal((await prisma.shift.findUniqueOrThrow({ where: { id: open.id } })).status, "BOOKED");
 
-  await prisma.shift.update({ where: { id: open.id }, data: { status: "OPEN", carerId: null } });
+  await prisma.shift.delete({ where: { id: open.id } });
   await prisma.assistAction.deleteMany({ where: { userId: user.id } });
 });
 
