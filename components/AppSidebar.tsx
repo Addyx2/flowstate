@@ -2,8 +2,9 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { useEffect, useState } from "react";
 
-import { NAVIGATION } from "@/lib/navigation";
+import { groupForPath, NAV_GROUPS, NAVIGATION, type NavGroup, type NavSection } from "@/lib/navigation";
 
 function cn(...classes: (string | false | undefined)[]) {
   return classes.filter(Boolean).join(" ");
@@ -23,9 +24,56 @@ const linkClass = (active: boolean) =>
     active ? "bg-[#1a1a1a] text-[#e2e2e2]" : "text-[#8a8a8a] hover:bg-[#141416] hover:text-[#e2e2e2]"
   );
 
+const STORAGE_KEY = "flowstate.sidebar.group";
+
 export function AppSidebar() {
   const pathname = usePathname();
   const isActive = (href: string) => pathname === href || pathname.startsWith(`${href}/`);
+
+  // Open on the list the current page belongs to; otherwise the last one used.
+  const [group, setGroup] = useState<NavGroup>(() => groupForPath(pathname) ?? "flowstate");
+  useEffect(() => {
+    const fromPath = groupForPath(pathname);
+    if (fromPath) {
+      setGroup(fromPath);
+      return;
+    }
+    try {
+      const saved = localStorage.getItem(STORAGE_KEY) as NavGroup | null;
+      if (saved && NAV_GROUPS.some((g) => g.id === saved)) setGroup(saved);
+    } catch {
+      // storage unavailable: keep the default
+    }
+  }, [pathname]);
+
+  const choose = (g: NavGroup) => {
+    setGroup(g);
+    try {
+      localStorage.setItem(STORAGE_KEY, g);
+    } catch {
+      // storage unavailable: the choice lasts for this page only
+    }
+  };
+
+  const renderSection = (section: NavSection) =>
+    section.href ? (
+      <Link key={section.title} href={section.href} className={linkClass(isActive(section.href))}>
+        <Icon d={section.icon} />
+        {section.title}
+      </Link>
+    ) : (
+      <div key={section.title} className="space-y-1">
+        <p className="flex items-center gap-2 px-2 font-mono text-[9px] tracking-[0.18em] text-[#5a5a5a]">
+          <Icon d={section.icon} />
+          {section.title.toUpperCase()}
+        </p>
+        {section.items?.map((item) => (
+          <Link key={item.href} href={item.href} className={cn(linkClass(isActive(item.href)), "pl-8")}>
+            {item.label}
+          </Link>
+        ))}
+      </div>
+    );
 
   return (
     <nav className="flex min-h-screen w-60 shrink-0 flex-col gap-5 border-r border-[#2a2a2a] bg-[#0a0a0b] px-4 py-8">
@@ -37,26 +85,29 @@ export function AppSidebar() {
         <span className="font-mono text-[9px] text-[#ffb800] ml-1">PROTOTYPE</span>
       </div>
 
-      {NAVIGATION.map((section) =>
-        section.href ? (
-          <Link key={section.title} href={section.href} className={linkClass(isActive(section.href))}>
-            <Icon d={section.icon} />
-            {section.title}
-          </Link>
-        ) : (
-          <div key={section.title} className="space-y-1">
-            <p className="flex items-center gap-2 px-2 font-mono text-[9px] tracking-[0.18em] text-[#5a5a5a]">
-              <Icon d={section.icon} />
-              {section.title.toUpperCase()}
-            </p>
-            {section.items?.map((item) => (
-              <Link key={item.href} href={item.href} className={cn(linkClass(isActive(item.href)), "pl-8")}>
-                {item.label}
-              </Link>
-            ))}
-          </div>
-        )
-      )}
+      <div role="tablist" aria-label="Sidebar list" className="grid grid-cols-3 gap-1 rounded-md border border-[#2a2a2a] p-1">
+        {NAV_GROUPS.map((g) => (
+          <button
+            key={g.id}
+            type="button"
+            role="tab"
+            aria-selected={group === g.id}
+            onClick={() => choose(g.id)}
+            className={cn(
+              "rounded px-1 py-1.5 font-mono text-[9px] tracking-wider transition-colors",
+              group === g.id ? "bg-[#1a1a1a] text-[#4a9eff]" : "text-[#8a8a8a] hover:text-[#e2e2e2]"
+            )}
+          >
+            {g.label.toUpperCase()}
+          </button>
+        ))}
+      </div>
+
+      {NAVIGATION.filter((s) => s.group === group).map(renderSection)}
+
+      <div className="mt-auto border-t border-[#2a2a2a] pt-5">
+        {NAVIGATION.filter((s) => !s.group).map(renderSection)}
+      </div>
     </nav>
   );
 }

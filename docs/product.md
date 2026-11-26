@@ -14,7 +14,7 @@ Flowstate is a **prototype**: keep it simple and explainable.
 |---|---|
 | **Coordinators** (agency office) | Workforce, Shifts, Supply, Watchboard, Admin, Elements, Account — see `spec/navigation.md` (D12, D13) |
 | **Carers** | The shared **Aultrum carer app**, also used by Pleasant carers. Flowstate feeds it through Carer API v1 (D10) |
-| **Key persons** (family) | A praise link. No account in v1 |
+| **Key persons** (family) | A praise link (`spec/links.md`). No account in v1 |
 | **Care receivers** | Nothing in v1 |
 
 Everyone signs in with **Aultrum ID**. Menus are assembled by role.

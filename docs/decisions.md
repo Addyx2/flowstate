@@ -71,3 +71,15 @@ New **Persona** section: **Assist**, **Pushbots**, **Qualifiers** (own page) and
 Watchboard shows the Qualifiers as sliding cards, one per Aultrum Layer, each
 listing what's flagged. Every AI function confirms before changing anything and
 scores the work, never the person receiving care. Spec: `spec/persona.md`.
+
+### D15 — Layers, directives, Links and the three sidebar lists (26 Nov 2026)
+- **Aultrum Layers in v1:** Competence, Compliance, Shift Readiness, Rapport.
+  Rapport draws on Peak praise.
+- **Directives belong to each user** (each email account): rules for the AI and
+  watches, e.g. "Let me know when Sarah and Mark have a better rapport".
+- **Links** are the easy way into Aultrum: anything can be published as a link
+  (e.g. a shift request sent to an agency). Managed in Account → Links. The
+  key-person praise link is one kind. Spec: `spec/links.md`.
+- **Sidebar:** Flowstate, Persona and Elements are three lists side by side,
+  switched with a toggle. Supersedes Persona's placement in D14. Account is
+  pinned under all three.

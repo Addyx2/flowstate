@@ -1,6 +1,9 @@
 # Spec — Persona (Flowstate's AI functions)
 
-_Source: 26 Nov 2026 (D14)._
+_Source: 26 Nov 2026 (D14, D15)._
+
+Persona has its own list in the sidebar, side by side with Flowstate and
+Elements (see `spec/navigation.md`).
 
 **Persona** is the home of every AI function in Flowstate. It has four parts.
 
@@ -9,7 +12,7 @@ _Source: 26 Nov 2026 (D14)._
 | **Assist** | `/persona/assist` | AI assistant for coordinators. Answers questions from live data and does work through the app's own actions (fill a shift, approve a request, raise an invoice), with the coordinator confirming every change |
 | **Pushbots** | `/persona/pushbots` | The agency's own number that carers and office staff text. Carers see shifts, take offers, report sickness; office staff give it jobs that wait for a YES code |
 | **Qualifiers** | `/persona/qualifiers` | The Aultrum Layers in full: each layer's score, what it flagged and why, for every carer and Package |
-| **Associate** | `/persona/associate` | Standing AI work: **routines** (scheduled jobs, e.g. a morning briefing), **directives** (rules the AI follows, e.g. "offer to the Package's own team first"), and **qualifying** Packages or workforces (run the Qualifiers on a Package, a carer or the whole workforce) |
+| **Associate** | `/persona/associate` | Standing AI work: **routines** (scheduled jobs, e.g. a morning briefing), **directives** (instructions each user saves for the AI — rules to follow or things to watch for), and **qualifying** Packages or workforces (run the Qualifiers on a Package, a carer or the whole workforce) |
 
 Assist and Pushbots follow Pleasant's design (`/persona/assist`, Pushbots in
 Pleasant) — reuse the pattern, adapted to Packages.
@@ -25,11 +28,26 @@ Layer**. Each card shows:
 
 The full detail for each layer lives on the Qualifiers page.
 
-**Layers to show** — _to confirm_. Known from Pleasant's Persona page:
-**Competence** (skills fit for the Package), **Compliance** (worker checks:
-DBS, right to work, training expiry — a gate, one failed check rules a booking
-out), **Shift Readiness** (fatigue, overlapping shifts, working-time limits).
-Other layers (e.g. Rapport, continuity between a carer and a Package)?
+**The four layers (v1):**
+
+| Layer | Measures | Flags, for example |
+|---|---|---|
+| **Competence** | Skills fit between a carer and a Package's logistics and role | A carer booked on a role they have no training record for |
+| **Compliance** | Worker checks: DBS, right to work, training expiry. A gate — one failed check rules a booking out | An expired DBS on a carer booked next week |
+| **Shift Readiness** | Fatigue and capacity: overlapping shifts, long runs, working-time limits, travel between visits | A carer on a 13-hour day with no break |
+| **Rapport** | The bond between a carer and a Package, from **Peak praise** (families via praise links, teammates, coordinators) and continuity of the team | A Package that sees a new carer every week; praise for one carer dropping |
+
+## Directives
+
+Directives belong to **each user's account** (each email address saves its
+own). Two kinds:
+- **Rules** the AI follows when it acts for that user, e.g. "offer shifts to the
+  Package's own team first".
+- **Watches** that notify the user when something becomes true, e.g. "Let me know
+  when Sarah and Mark have a better rapport".
+
+A directive can only narrow what the AI does or ask to be told something; it
+never grants new permissions.
 
 ## Rules for every AI function
 
@@ -52,6 +70,5 @@ Other layers (e.g. Rapport, continuity between a carer and a Package)?
 
 ## Open questions
 
-1. Which Aultrum Layers appear on the Watchboard in v1?
-2. Where does Persona sit in the sidebar? (Placed after Watchboard for now.)
-3. Directives: does each coordinator set their own, or the agency for everyone?
+1. Rapport from praise: does praise text itself count, or only that praise was given (safer: praise is about the carer, but families may mention the care receiver's health)?
+2. How should a watch notify — in Flowstate only, email, or text?
