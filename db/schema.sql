@@ -4,7 +4,7 @@
 -- LAUNCH SCOPE: non-regulated functions only.
 -- CQC-regulated data (care plans, visits/tasks, care notes, eMAR, incidents,
 -- care-receiver health records) is PUSHED FORWARD to Phase 2 and has no tables
--- here. See lib/features.ts and docs/architecture.md.
+-- here. See lib/features.ts and docs/scope.md.
 
 -- Organisations: agencies, employers, community groups.
 CREATE TABLE IF NOT EXISTS organisations (

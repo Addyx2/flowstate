@@ -2,7 +2,7 @@ export const metadata = { title: "Peak" };
 
 const FEATURES = [
   { icon: "M12 3l2.4 6.3L21 12l-6.6 2.7L12 21l-2.4-6.3L3 12l6.6-2.7z", label: "EARN", desc: "Carers earn Cashable Points for worked shifts, punctuality, and praise from coordinators." },
-  { icon: "M4 6h16M4 12h10M4 18h7", label: "SPEND", desc: "Points cash out to bank or convert to perks — no compliance constraint on benefits." },
+  { icon: "M4 6h16M4 12h10M4 18h7", label: "SPEND", desc: "Points cash out or convert to perks, with fair rules: absence never breaks a streak." },
   { icon: "M3 7h18v10H3zM7 10v5M3 12h4", label: "CARD ISSUING", desc: "Physical and virtual cashable cards issued straight from approved timesheets." },
   { icon: "M8 17l4-4 4 4M8 13l4-4 4 4", label: "LEDGER", desc: "Per-worker points ledger, reconciled against the payroll run — always auditable." },
 ];
@@ -19,7 +19,7 @@ export default function PeakPage() {
   return (
     <main className="px-6 md:px-16 py-12 max-w-6xl mx-auto">
       <p className="font-mono text-[10px] tracking-widest text-[#00e676] mb-2">
-        ADDONS SUITE // PEAK
+        ELEMENTS // PEAK
       </p>
       <h1 className="text-3xl md:text-4xl font-light mb-2">Recognition that pays.</h1>
       <p className="text-[#a0a0a0] mb-12 max-w-2xl">

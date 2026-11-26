@@ -18,7 +18,7 @@ export default function GatewayPage() {
   return (
     <main className="px-6 md:px-16 py-12 max-w-6xl mx-auto">
       <p className="font-mono text-[10px] tracking-widest text-[#4a9eff] mb-2">
-        ADDONS SUITE // GATEWAY
+        ELEMENTS // GATEWAY
       </p>
       <h1 className="text-3xl md:text-4xl font-light mb-2">The always-on contact centre.</h1>
       <p className="text-[#a0a0a0] mb-12 max-w-2xl">

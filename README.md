@@ -1,5 +1,7 @@
 # Flowstate (product)
 
+**Start here:** [`AGENTS.md`](AGENTS.md) and [`docs/`](docs/README.md) — product, scope, status, decisions.
+
 AI-native social care product. Separated from the marketing site.
 
 - **Host:** Vercel
@@ -32,7 +34,7 @@ lib/db.ts             → Vercel Postgres helpers
 Phase 1 ships only functions that need no CQC registration. CQC-regulated
 functions (care plans, visit scheduling, care notes, eMAR, clinical triage,
 safeguarding) are pushed forward to Phase 2. See `lib/features.ts`, the
-`/roadmap` page, and `docs/architecture.md`.
+`/roadmap` page, and `docs/scope.md`.
 
 ## Telephony webhook (Twilio)
 

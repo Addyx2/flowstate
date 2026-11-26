@@ -1,17 +1,17 @@
 import Link from "next/link";
 
-export const metadata = { title: "Add-ons" };
+export const metadata = { title: "Elements" };
 
 const ADDONS = [
   {
-    href: "/addons/gateway",
+    href: "/elements/gateway",
     tag: "GATEWAY",
     name: "Always-on contact centre",
     desc: "Answers every inbound call, qualifies enquiries, and books the next-step meeting — logged straight into Flowstate.",
     accent: "#4a9eff",
   },
   {
-    href: "/addons/peak",
+    href: "/elements/peak",
     tag: "PEAK",
     name: "Recognition that pays",
     desc: "Points for shifts, punctuality, and praise — cashed out or spent on perks. Built on the Flowstate points ledger.",
@@ -23,7 +23,7 @@ export default function AddonsPage() {
   return (
     <main className="px-6 md:px-16 py-12 max-w-6xl mx-auto">
       <p className="font-mono text-[10px] tracking-widest text-[#4a9eff] mb-2">
-        ADDONS SUITE
+        ELEMENTS
       </p>
       <h1 className="text-3xl md:text-4xl font-light mb-2">Extend Flowstate.</h1>
       <p className="text-[#a0a0a0] mb-12 max-w-2xl">

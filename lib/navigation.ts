@@ -1,0 +1,97 @@
+/**
+ * Coordinator sidebar. Spec: docs/spec/navigation.md — if this file and the
+ * spec disagree, the spec wins.
+ */
+
+export interface NavItem {
+  href: string;
+  label: string;
+  /** One line shown on the page until it's built. */
+  purpose: string;
+  built?: boolean;
+}
+
+export interface NavSection {
+  title: string;
+  icon: string; // SVG path, 24×24
+  /** Section with a single page (e.g. Watchboard) has no items. */
+  href?: string;
+  purpose?: string;
+  adminOnly?: boolean;
+  items?: NavItem[];
+}
+
+export const NAVIGATION: NavSection[] = [
+  {
+    title: "Workforce",
+    icon: "M16 19v-1a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v1M9 10a3 3 0 1 0 0-6 3 3 0 0 0 0 6zM22 19v-1a4 4 0 0 0-3-3.9M16 4.1a3 3 0 0 1 0 5.8",
+    items: [
+      { href: "/workforce/onboarding", label: "Onboarding", purpose: "Bring new carers in: application, checks and ready to work." },
+      { href: "/workforce/directory", label: "Directory", purpose: "Everyone: carers, care receivers, coordinators and key persons." },
+      { href: "/workforce/teams", label: "Teams", purpose: "The care team around each Package: a care receiver or a care home." },
+    ],
+  },
+  {
+    title: "Shifts",
+    icon: "M8 2v3M16 2v3M3 9h18M5 5h14a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2z",
+    items: [
+      { href: "/shifts/rotas", label: "Rotas", purpose: "The weekly rota and repeating patterns." },
+      { href: "/shifts/open", label: "Open", purpose: "Shifts nobody is booked on yet." },
+      { href: "/shifts/manage", label: "Manage", purpose: "All shifts: create, change and cancel." },
+      { href: "/shifts/requests", label: "Request", purpose: "Requests from carers: shifts they want, swaps and time off." },
+    ],
+  },
+  {
+    title: "Supply",
+    icon: "M3 7h13v10H3zM16 10h3l2 3v4h-5M7 20a2 2 0 1 0 0-4 2 2 0 0 0 0 4zM17 20a2 2 0 1 0 0-4 2 2 0 0 0 0 4z",
+    items: [
+      { href: "/supply/request", label: "Request", purpose: "Request workforce from agencies on Pleasant, or from your Preferred Supply List." },
+      { href: "/supply/manage", label: "Manage", purpose: "Requests made, agency workers booked and their timesheets." },
+    ],
+  },
+  {
+    title: "Watchboard",
+    icon: "M3 4h7v7H3zM14 4h7v12h-7zM3 13h7v7H3zM14 17h7v3h-7z",
+    href: "/watchboard",
+    purpose: "The important parts of every feature, in one view.",
+  },
+  {
+    title: "Admin",
+    icon: "M12 3l8 3v5c0 5-3.4 8.2-8 10-4.6-1.8-8-5-8-10V6z",
+    adminOnly: true,
+    items: [
+      { href: "/admin/payroll", label: "Payroll", purpose: "Pay the agency's own carers." },
+      { href: "/admin/invoices", label: "Invoice", purpose: "Invoices from supply agencies, and invoices to councils and clients generated from Packages." },
+      { href: "/admin/bids", label: "Bid", purpose: "Bid for hospital-discharge packages and see which ones you can cover. Logistics only, no clinical detail." },
+    ],
+  },
+  {
+    title: "Elements",
+    icon: "M4 5h4a1 1 0 0 1 1 1v2a2 2 0 0 0 4 0V6a1 1 0 0 1 1-1h4v4h-2a2 2 0 0 0 0 4h2v4h-4a1 1 0 0 1-1-1v-2a2 2 0 0 0-4 0v2a1 1 0 0 1-1 1H4z",
+    items: [
+      { href: "/elements/gateway", label: "Gateway", purpose: "Always-on contact centre.", built: true },
+      { href: "/elements/peak", label: "Peak", purpose: "Recognition and rewards.", built: true },
+    ],
+  },
+  {
+    title: "Account",
+    icon: "M12 15a3 3 0 1 0 0-6 3 3 0 0 0 0 6zM19.4 15a1.7 1.7 0 0 0 .3 1.8l.1.1a2 2 0 1 1-2.8 2.8l-.1-.1a1.7 1.7 0 0 0-1.8-.3 1.7 1.7 0 0 0-1 1.5V21a2 2 0 1 1-4 0v-.1a1.7 1.7 0 0 0-1.1-1.5 1.7 1.7 0 0 0-1.8.3l-.1.1a2 2 0 1 1-2.8-2.8l.1-.1a1.7 1.7 0 0 0 .3-1.8 1.7 1.7 0 0 0-1.5-1H3a2 2 0 1 1 0-4h.1a1.7 1.7 0 0 0 1.5-1.1 1.7 1.7 0 0 0-.3-1.8l-.1-.1a2 2 0 1 1 2.8-2.8l.1.1a1.7 1.7 0 0 0 1.8.3H9a1.7 1.7 0 0 0 1-1.5V3a2 2 0 1 1 4 0v.1a1.7 1.7 0 0 0 1 1.5 1.7 1.7 0 0 0 1.8-.3l.1-.1a2 2 0 1 1 2.8 2.8l-.1.1a1.7 1.7 0 0 0-.3 1.8V9a1.7 1.7 0 0 0 1.5 1H21a2 2 0 1 1 0 4h-.1a1.7 1.7 0 0 0-1.5 1z",
+    adminOnly: true,
+    items: [
+      { href: "/account/settings", label: "Settings", purpose: "Agency settings." },
+      { href: "/account/integrations", label: "Integrations", purpose: "Connected systems and APIs." },
+      { href: "/account/organisation", label: "Organisation", purpose: "Your organisation's details, team and roles." },
+      { href: "/account/links", label: "Links", purpose: "Aultrum Links that invite carers to join you in the Aultrum carer app." },
+    ],
+  },
+];
+
+/** Find the page for a path, for placeholder pages. */
+export function findPage(path: string): { section: NavSection; item?: NavItem } | null {
+  for (const section of NAVIGATION) {
+    if (section.href === path) return { section };
+    const item = section.items?.find((i) => i.href === path);
+    if (item) return { section, item };
+  }
+  return null;
+}

@@ -1,3 +1,8 @@
+> **Superseded.** Early (Aug–Nov 2026) architecture notes, kept for history.
+> Current docs: `docs/product.md`, `docs/scope.md`, `docs/decisions.md`.
+> The "Phasing" section below wrongly treated rota and visit scheduling as
+> CQC-regulated; see `docs/scope.md` for the correct line.
+
 # Flowstate Product Architecture
 
 ## Vision
