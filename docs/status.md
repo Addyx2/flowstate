@@ -26,10 +26,20 @@ Core (D18 step 1) is built and runs against Postgres with a demo seed.
 | Honor, Roadmap | `app/honor/*`, `/roadmap` | Old mock-ups, not in the sidebar |
 | Tests and CI | `lib/*.test.ts`, `.github/workflows/ci.yml` | 10 tests: checks, Rapport, readiness, the carer contract and a carer's day, Assist's loop |
 
+## Deployed
+
+- **Preview** (this branch): https://flowstate-git-claude-flowstate-no-cqc-w3j841-aultrum-dev.vercel.app
+  — behind Vercel login (team `aultrum-dev`); demo sign-ins shown on the login page.
+- **Database:** Neon `flowstate-db` (free plan, London `lhr1`), connected to
+  Production and Preview. Builds migrate over the direct connection and seed
+  demo data only into an empty database (`vercel.json`).
+- **Production** (`flowstate.aultrum.co.uk`) still serves `main` until this branch is merged.
+- `ANTHROPIC_API_KEY` on Vercel may be empty: Assist says "isn't set up" until a key is added.
+
 ## Next
 
 1. **Merge the Aultrum ID registration** (`aultrum-id`, branch `claude/flowstate-no-cqc-w3j841`) and deploy it.
-2. **Deploy**: Vercel project + Postgres; set `AUTH_SECRET`, `ANTHROPIC_API_KEY`; run migrations.
+2. **Merge to `main`** to put Flowstate on `flowstate.aultrum.co.uk` (shares the same database).
 3. **Designs** (D11) refine the screens as they arrive in `docs/design/`.
 4. **Office and Supply** (D18 step 2), then **Associate** and Pushbots (step 3).
 5. Peak via Canvas in Elements and the carer app's Peak tab.
@@ -53,6 +63,7 @@ Core (D18 step 1) is built and runs against Postgres with a demo seed.
 | Date | Tool | Branch | Summary |
 |---|---|---|---|
 | 27 Aug – 1 Oct 2026 | — | `main` | Scaffold: Next.js app, voice webhook, Honor module, add-ons sidebar |
+| 26 Nov 2026 | Claude Code (cloud) | `claude/flowstate-no-cqc-w3j841` | Deployed preview on Vercel with a new Neon database (London); fresh AUTH_SECRET |
 | 26 Nov 2026 | Claude Code (cloud) | `claude/flowstate-no-cqc-w3j841` | D20: registered Flowstate in Aultrum ID (aultrum-id branch); postcodes.io kept; praise only for involved parties |
 | 26 Nov 2026 | Claude Code (cloud) | `claude/flowstate-no-cqc-w3j841` | Built Core (D19): Prisma foundation, Workforce, Shifts, Watchboard + Qualifiers, Links, Carer API v1, Assist; tests and CI |
 | 26 Nov 2026 | Claude Code (cloud) | `claude/flowstate-no-cqc-w3j841` | D18: build order (Core → Office + Supply → Associate); Admin → Office; Gateway via API only |
