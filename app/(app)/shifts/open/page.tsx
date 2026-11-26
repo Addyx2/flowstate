@@ -33,18 +33,18 @@ export default async function OpenPage() {
             <Card key={s.id}>
               <div className="mb-3 flex flex-wrap items-center justify-between gap-2">
                 <div>
-                  <span className="text-lg font-light">{s.package.name}</span>
-                  <span className="ml-3 text-sm text-[#a0a0a0]">{fmtRange(s.startAt, s.endAt)}</span>
-                  {s.jobRole ? <span className="ml-3 text-xs text-[#8a8a8a]">{s.jobRole.name}</span> : null}
+                  <span className="font-serif text-[21px]">{s.package.name}</span>
+                  <span className="ml-3 text-sm text-muted">{fmtRange(s.startAt, s.endAt)}</span>
+                  {s.jobRole ? <span className="ml-3 text-xs text-muted">{s.jobRole.name}</span> : null}
                 </div>
                 {s.requests.length ? <Badge tone="info">{s.requests.length} ASKED FOR IT</Badge> : null}
               </div>
               <ul className="space-y-2">
                 {ready.slice(0, 3).map((x) => (
-                  <li key={x.carerId} className="flex flex-wrap items-center justify-between gap-2 border-t border-[#1d1d1f] pt-2">
+                  <li key={x.carerId} className="flex flex-wrap items-center justify-between gap-2 border-t border-divider pt-2">
                     <div className="min-w-0">
                       <span>{x.name}</span>
-                      <span className="block text-xs text-[#8a8a8a]">{x.reasons.join(" · ") || "available"}</span>
+                      <span className="block text-xs text-muted">{x.reasons.join(" · ") || "available"}</span>
                     </div>
                     <ActionForm action={bookAction} submit="Book">
                       <input type="hidden" name="shiftId" value={s.id} />
@@ -52,12 +52,12 @@ export default async function OpenPage() {
                     </ActionForm>
                   </li>
                 ))}
-                {ready.length === 0 ? <li className="text-sm text-[#ffb800]">No one is clear to work this. Ask an agency below.</li> : null}
+                {ready.length === 0 ? <li className="text-sm text-warn">No one is clear to work this. Ask an agency below.</li> : null}
               </ul>
               <div className="mt-3 grid gap-2 sm:grid-cols-2">
                 {list.filter((x) => x.blockers.length).length ? (
                   <Details summary="Who can't, and why">
-                    <ul className="space-y-1 text-xs text-[#8a8a8a]">
+                    <ul className="space-y-1 text-xs text-muted">
                       {list
                         .filter((x) => x.blockers.length)
                         .map((x) => (
@@ -73,7 +73,7 @@ export default async function OpenPage() {
                     <input type="hidden" name="shiftId" value={s.id} />
                     <input name="to" placeholder="Agency name (optional)" className={inputClass} />
                   </LinkMaker>
-                  <p className="mt-2 text-xs text-[#8a8a8a]">The link shows the time, area and role only — never the name, address or access details.</p>
+                  <p className="mt-2 text-xs text-muted">The link shows the time, area and role only — never the name, address or access details.</p>
                 </Details>
               </div>
             </Card>

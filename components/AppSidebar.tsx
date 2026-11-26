@@ -13,16 +13,16 @@ function cn(...classes: (string | false | undefined)[]) {
 
 function Icon({ d }: { d: string }) {
   return (
-    <svg viewBox="0 0 24 24" className="h-3.5 w-3.5 shrink-0 stroke-current fill-none stroke-[1.8]" aria-hidden="true">
+    <svg viewBox="0 0 24 24" className="h-4 w-4 shrink-0 fill-none stroke-current stroke-[1.6]" aria-hidden="true">
       <path d={d} strokeLinecap="round" strokeLinejoin="round" />
     </svg>
   );
 }
 
-const linkClass = (active: boolean) =>
+const itemClass = (active: boolean) =>
   cn(
-    "flex items-center gap-2.5 rounded-md px-2 py-2 font-mono text-[11px] tracking-wider transition-colors",
-    active ? "bg-[#1a1a1a] text-[#e2e2e2]" : "text-[#8a8a8a] hover:bg-[#141416] hover:text-[#e2e2e2]"
+    "flex items-center gap-3 rounded-lg px-3 py-[7px] text-[14px] transition-colors",
+    active ? "bg-side-active text-side-ink" : "text-side-ink/80 hover:bg-side-hover hover:text-side-ink",
   );
 
 const STORAGE_KEY = "flowstate.sidebar.group";
@@ -60,18 +60,16 @@ export function AppSidebar({ user }: { user: { name: string; role: string; agenc
 
   const renderSection = (section: NavSection) =>
     section.href ? (
-      <Link key={section.title} href={section.href} className={linkClass(isActive(section.href))}>
+      <Link key={section.title} href={section.href} className={itemClass(isActive(section.href))}>
         <Icon d={section.icon} />
         {section.title}
       </Link>
     ) : (
-      <div key={section.title} className="space-y-1">
-        <p className="flex items-center gap-2 px-2 font-mono text-[9px] tracking-[0.18em] text-[#5a5a5a]">
-          <Icon d={section.icon} />
-          {section.title.toUpperCase()}
-        </p>
+      <div key={section.title}>
+        <p className="mb-1 mt-5 px-3 text-[13px] text-side-muted">{section.title}</p>
         {section.items?.map((item) => (
-          <Link key={item.href} href={item.href} className={cn(linkClass(isActive(item.href)), "pl-8")}>
+          <Link key={item.href} href={item.href} className={itemClass(isActive(item.href))}>
+            <Icon d={section.icon} />
             {item.label}
           </Link>
         ))}
@@ -79,16 +77,15 @@ export function AppSidebar({ user }: { user: { name: string; role: string; agenc
     );
 
   return (
-    <nav className="flex min-h-screen w-60 shrink-0 flex-col gap-5 border-r border-[#2a2a2a] bg-[#0a0a0b] px-4 py-8">
-      <div className="flex items-center gap-2 px-2">
-        <span className="font-mono text-xs tracking-[0.12em] text-[#e2e2e2]">
-          AULTRUM<span className="text-[#3a3a3a]">/</span>
-          <span className="text-[#4a9eff]">FLOWSTATE</span>
-        </span>
-        <span className="font-mono text-[9px] text-[#ffb800] ml-1">PROTOTYPE</span>
+    <nav className="sticky top-0 flex h-screen w-[260px] shrink-0 flex-col overflow-y-auto bg-side px-4 py-7 text-side-ink">
+      <div className="mb-6 flex items-baseline justify-between px-3">
+        <Link href="/watchboard" className="font-serif text-[26px] leading-none tracking-[-0.01em]">
+          Flowstate
+        </Link>
+        <span className="rounded-full border border-side-line px-2 py-0.5 text-[10px] text-side-muted">Prototype</span>
       </div>
 
-      <div role="tablist" aria-label="Sidebar list" className="grid grid-cols-3 gap-1 rounded-md border border-[#2a2a2a] p-1">
+      <div role="tablist" aria-label="Sidebar list" className="mx-1 grid grid-cols-3 gap-1 rounded-xl bg-side-hover p-1">
         {NAV_GROUPS.map((g) => (
           <button
             key={g.id}
@@ -97,24 +94,29 @@ export function AppSidebar({ user }: { user: { name: string; role: string; agenc
             aria-selected={group === g.id}
             onClick={() => choose(g.id)}
             className={cn(
-              "rounded px-1 py-1.5 font-mono text-[9px] tracking-wider transition-colors",
-              group === g.id ? "bg-[#1a1a1a] text-[#4a9eff]" : "text-[#8a8a8a] hover:text-[#e2e2e2]"
+              "rounded-lg px-1 py-1.5 text-[12px] transition-colors",
+              group === g.id ? "bg-side-active text-side-ink" : "text-side-muted hover:text-side-ink",
             )}
           >
-            {g.label.toUpperCase()}
+            {g.label}
           </button>
         ))}
       </div>
 
-      {NAVIGATION.filter((s) => s.group === group && visible(s)).map(renderSection)}
+      <div className="mt-2">{NAVIGATION.filter((s) => s.group === group && visible(s)).map(renderSection)}</div>
 
-      <div className="mt-auto border-t border-[#2a2a2a] pt-5">
+      <div className="mt-auto pt-6">
         {NAVIGATION.filter((s) => !s.group && visible(s)).map(renderSection)}
-        <div className="mt-4 px-2">
-          <p className="truncate text-xs text-[#e2e2e2]">{user.name}</p>
-          <p className="truncate font-mono text-[9px] tracking-wider text-[#5a5a5a]">{user.agency.toUpperCase()}</p>
+        <div className="mt-6 flex items-center gap-3 border-t border-side-line px-3 pt-5">
+          <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-md bg-side-active text-[13px]">{user.name.charAt(0)}</span>
+          <div className="min-w-0 flex-1">
+            <p className="truncate text-[14px]">{user.name}</p>
+            <p className="truncate text-[12px] text-side-muted">{user.agency}</p>
+          </div>
           <form action={logoutAction}>
-            <button type="submit" className="mt-2 font-mono text-[10px] tracking-wider text-[#8a8a8a] hover:text-[#e2e2e2]">SIGN OUT</button>
+            <button type="submit" title="Sign out" className="text-[12px] text-side-muted hover:text-side-ink">
+              Sign out
+            </button>
           </form>
         </div>
       </div>

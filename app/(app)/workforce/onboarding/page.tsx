@@ -24,7 +24,7 @@ export default async function OnboardingPage() {
 
       <div className="grid gap-4 md:grid-cols-[1fr_320px]">
         <div className="space-y-4">
-          <p className="font-mono text-[10px] tracking-widest text-[#a0a0a0]">IN ONBOARDING ({onboarding.length})</p>
+          <p className="label-title text-[13px] text-muted">IN ONBOARDING ({onboarding.length})</p>
           {onboarding.length === 0 ? <Empty>No one is onboarding. Add a carer to start.</Empty> : null}
           {carers.map((c) => {
             const rows = [
@@ -38,7 +38,7 @@ export default async function OnboardingPage() {
               <Card key={c.id}>
                 <div className="mb-3 flex flex-wrap items-center justify-between gap-2">
                   <div>
-                    <span className="text-lg font-light">{fullName(c)}</span>
+                    <span className="font-serif text-[21px]">{fullName(c)}</span>
                     <span className="ml-2">
                       <Badge tone={c.status === "ACTIVE" ? "ok" : "info"}>{c.status}</Badge>
                     </span>
@@ -57,9 +57,9 @@ export default async function OnboardingPage() {
                   {rows.map((r) => {
                     const state = expiryState(r.check);
                     return (
-                      <li key={r.label} className="flex items-center justify-between gap-2 border-b border-[#1d1d1f] py-1.5 text-sm">
+                      <li key={r.label} className="flex items-center justify-between gap-2 border-b border-divider py-1.5 text-sm">
                         <span>{r.label}</span>
-                        <span className="flex items-center gap-2 text-xs text-[#8a8a8a]">
+                        <span className="flex items-center gap-2 text-xs text-muted">
                           {r.check?.expiresAt ? fmtDate(r.check.expiresAt) : null}
                           <Badge tone={STATE_TONE[state]}>{STATE_LABEL[state]}</Badge>
                         </span>
@@ -104,7 +104,7 @@ export default async function OnboardingPage() {
         </div>
 
         <Card className="h-fit">
-          <p className="font-mono text-[10px] tracking-widest text-[#4a9eff] mb-3">ADD A CARER</p>
+          <p className="label-title text-[13px] text-accent mb-3">ADD A CARER</p>
           <ActionForm action={createCarer} submit="Add to onboarding">
             <Field label="First name">
               <input name="firstName" required className={inputClass} />

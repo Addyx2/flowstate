@@ -1,1 +1,50 @@
 @import "tailwindcss";
+
+/* Flowstate design tokens — warm, quiet, editorial. Dark sidebar, light canvas. */
+@theme {
+  --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+  --font-serif: var(--font-newsreader), ui-serif, Georgia, serif;
+  /* Labels used to be monospace; they're now set in the sans face. */
+  --font-mono: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+
+  --color-canvas: #f4f2ee;
+  --color-card: #ffffff;
+  --color-field: #ffffff;
+  --color-subtle: #efece6;
+  --color-hover: #f7f5f1;
+  --color-line: #e6e2da;
+  --color-divider: #efebe4;
+  --color-ink: #1c1b19;
+  --color-muted: #6b675f;
+  --color-faint: #9b968d;
+  --color-accent: #2f4a63;
+  --color-accent-soft: #e8eef4;
+  --color-ok: #2f7a55;
+  --color-ok-soft: #e6f2eb;
+  --color-warn: #9a6415;
+  --color-warn-soft: #f8eedc;
+  --color-bad: #9c3f2e;
+  --color-bad-soft: #f6e6e2;
+  --color-bar: #3e4651;
+  --color-bar-soft: #d9d5cd;
+
+  --color-side: #121110;
+  --color-side-hover: #1d1c1a;
+  --color-side-active: #2a2826;
+  --color-side-ink: #edebe6;
+  --color-side-muted: #8c877f;
+  --color-side-line: #2a2826;
+}
+
+body {
+  background: var(--color-canvas);
+  color: var(--color-ink);
+}
+
+/* Section titles inside cards read in sentence case whatever they were written as. */
+.label-title {
+  text-transform: lowercase;
+}
+.label-title::first-letter {
+  text-transform: uppercase;
+}

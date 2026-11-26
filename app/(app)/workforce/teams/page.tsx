@@ -29,21 +29,21 @@ export default async function TeamsPage() {
                 <Link href={`/workforce/teams/${p.id}`} className={linkClass}>
                   {p.name}
                 </Link>
-                <span className="block text-xs text-[#8a8a8a]">{p.postcode}</span>
+                <span className="block text-xs text-muted">{p.postcode}</span>
               </Td>
               <Td>
                 <Badge tone={p.kind === "CARE_HOME" ? "info" : "muted"}>{p.kind === "CARE_HOME" ? "CARE HOME" : "CARE RECEIVER"}</Badge>
               </Td>
               <Td>
-                {p.team.length === 0 ? <span className="text-[#8a8a8a]">No one yet</span> : p.team.map((m) => fullName(m.carer)).join(", ")}
+                {p.team.length === 0 ? <span className="text-muted">No one yet</span> : p.team.map((m) => fullName(m.carer)).join(", ")}
               </Td>
-              <Td>{p._count.shifts ? <Badge tone="warn">{p._count.shifts} OPEN</Badge> : <span className="text-[#8a8a8a]">—</span>}</Td>
+              <Td>{p._count.shifts ? <Badge tone="warn">{p._count.shifts} OPEN</Badge> : <span className="text-muted">—</span>}</Td>
             </tr>
           ))}
         </Table>
 
         <Card className="h-fit">
-          <p className="font-mono text-[10px] tracking-widest text-[#4a9eff] mb-3">NEW PACKAGE</p>
+          <p className="label-title text-[13px] text-accent mb-3">NEW PACKAGE</p>
           <ActionForm action={createPackage} submit="Create Package">
             <Field label="Kind">
               <select name="kind" className={inputClass}>
@@ -66,7 +66,7 @@ export default async function TeamsPage() {
             <Field label="Hourly rate (£)">
               <input name="hourlyRate" inputMode="decimal" className={inputClass} />
             </Field>
-            <p className="text-xs text-[#8a8a8a]">Logistics only. Don&apos;t add needs, conditions or care plans — they stay in your care-records system.</p>
+            <p className="text-xs text-muted">Logistics only. Don&apos;t add needs, conditions or care plans — they stay in your care-records system.</p>
           </ActionForm>
         </Card>
       </div>

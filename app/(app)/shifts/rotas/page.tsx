@@ -42,8 +42,8 @@ export default async function RotasPage() {
           <Card key={r.id}>
             <div className="mb-3 flex flex-wrap items-center justify-between gap-2">
               <div>
-                <Label>{r.package.name.toUpperCase()}</Label>
-                <p className="-mt-1 text-lg font-light">{r.name}</p>
+                <p className="text-[13px] text-muted">{r.package.name}</p>
+                <p className="-mt-1 font-serif text-[21px]">{r.name}</p>
               </div>
               <div className="flex gap-2">
                 <ActionForm action={generateAction} submit="This week">
@@ -58,19 +58,19 @@ export default async function RotasPage() {
             </div>
             <div className="grid gap-1 sm:grid-cols-7">
               {DAYS.map((d, i) => (
-                <div key={d} className="border border-[#1d1d1f] p-2">
-                  <p className="font-mono text-[10px] text-[#8a8a8a]">{d.toUpperCase()}</p>
+                <div key={d} className="border border-divider p-2">
+                  <p className="text-[12px] text-muted">{d}</p>
                   {r.lines
                     .filter((l) => l.weekday === i)
                     .map((l) => (
                       <div key={l.id} className="mt-1 text-xs">
-                        <span className="text-[#e2e2e2]">
+                        <span className="text-ink">
                           {l.startTime}–{l.endTime}
                         </span>
-                        <span className="block text-[#8a8a8a]">{l.carer ? fullName(l.carer) : "open"}</span>
+                        <span className="block text-muted">{l.carer ? fullName(l.carer) : "open"}</span>
                         <form action={removeRotaLineAction}>
                           <input type="hidden" name="lineId" value={l.id} />
-                          <button className="font-mono text-[9px] text-[#5a5a5a] hover:text-[#ff9b9b]">REMOVE</button>
+                          <button className="text-[11px] text-faint hover:text-bad">Remove</button>
                         </form>
                       </div>
                     ))}

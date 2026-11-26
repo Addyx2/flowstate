@@ -66,11 +66,11 @@ export function Chat() {
           </div>
         ) : null}
         {turns.map((t, i) => (
-          <div key={i} className={t.role === "user" ? "ml-auto max-w-[80%] border border-[#2a2a2a] bg-[#1a1a1a] px-4 py-3" : "max-w-[90%] px-1"}>
+          <div key={i} className={t.role === "user" ? "ml-auto max-w-[80%] border border-line bg-subtle px-4 py-3" : "max-w-[90%] px-1"}>
             <p className="whitespace-pre-wrap text-sm leading-relaxed">{t.text}</p>
             {t.proposals?.map((p) => (
-              <div key={p.id} className="mt-3 border border-[#4a9eff]/40 bg-[#4a9eff]/5 p-3">
-                <p className="font-mono text-[10px] tracking-widest text-[#4a9eff]">PROPOSED CHANGE</p>
+              <div key={p.id} className="mt-3 border border-accent/30 bg-accent-soft p-3">
+                <p className="label-title text-[13px] text-accent">PROPOSED CHANGE</p>
                 <p className="my-1 text-sm">{p.summary}</p>
                 {p.state === "pending" ? (
                   <div className="mt-2 flex gap-2">
@@ -82,17 +82,17 @@ export function Chat() {
                     </button>
                   </div>
                 ) : (
-                  <p className={`text-xs ${p.state === "done" ? "text-[#00e676]" : p.state === "failed" ? "text-[#ff9b9b]" : "text-[#8a8a8a]"}`}>{p.note}</p>
+                  <p className={`text-xs ${p.state === "done" ? "text-ok" : p.state === "failed" ? "text-bad" : "text-muted"}`}>{p.note}</p>
                 )}
               </div>
             ))}
           </div>
         ))}
-        {busy ? <p className="font-mono text-[10px] tracking-widest text-[#8a8a8a]">ASSIST IS LOOKING…</p> : null}
-        {error ? <p className="text-sm text-[#ff9b9b]">{error}</p> : null}
+        {busy ? <p className="label-title text-[13px] text-muted">ASSIST IS LOOKING…</p> : null}
+        {error ? <p className="text-sm text-bad">{error}</p> : null}
       </div>
       <form
-        className="sticky bottom-0 mt-6 flex gap-2 bg-[#070708] py-3"
+        className="sticky bottom-0 mt-6 flex gap-2 bg-canvas py-3"
         onSubmit={(e) => {
           e.preventDefault();
           send(input);

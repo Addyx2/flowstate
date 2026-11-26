@@ -25,15 +25,15 @@ export default async function RequestsPage() {
       {pending.length === 0 ? <Empty>No requests waiting.</Empty> : null}
       <div className="space-y-2">
         {pending.map((r) => (
-          <div key={r.id} className="flex flex-wrap items-center justify-between gap-3 border border-[#2a2a2a] bg-[#111111] p-4">
+          <div key={r.id} className="flex flex-wrap items-center justify-between gap-3 border border-line bg-card p-4">
             <div>
               <div className="flex items-center gap-2">
                 <span>{fullName(r.carer)}</span>
                 <Badge tone={r.kind === "TIME_OFF" ? "info" : r.kind === "SWAP" ? "warn" : "ok"}>{KIND[r.kind].toUpperCase()}</Badge>
-                <span className="text-xs text-[#8a8a8a]">{ago(r.createdAt)}</span>
+                <span className="text-xs text-muted">{ago(r.createdAt)}</span>
               </div>
-              <p className="text-sm text-[#a0a0a0]">{what(r)}</p>
-              {r.note ? <p className="text-sm text-[#8a8a8a]">&ldquo;{r.note}&rdquo;</p> : null}
+              <p className="text-sm text-muted">{what(r)}</p>
+              {r.note ? <p className="text-sm text-muted">&ldquo;{r.note}&rdquo;</p> : null}
             </div>
             <div className="flex gap-2">
               <form action={decideAction}>

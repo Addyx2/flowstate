@@ -13,8 +13,8 @@ export default async function LinkPage() {
   return (
     <main className="min-h-screen flex items-center justify-center px-4">
       <div className="w-full max-w-sm">
-        <h1 className="text-2xl font-light mb-2">Link your Aultrum ID</h1>
-        <p className="text-sm text-[#a0a0a0] mb-6">
+        <h1 className="font-serif text-[28px] mb-2">Link your Aultrum ID</h1>
+        <p className="text-sm text-muted mb-6">
           Confirm your Flowstate password for {pending.email} once. After that, Aultrum ID signs you straight in.
         </p>
         <LinkForm />

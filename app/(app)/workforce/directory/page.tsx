@@ -49,14 +49,14 @@ export default async function DirectoryPage({ searchParams }: { searchParams: Pr
             return (
               <tr key={c.id}>
                 <Td>
-                  <span className="text-[#e2e2e2]">{fullName(c)}</span>
-                  <span className="block text-xs text-[#8a8a8a]">{[c.email, c.phone, c.postcode].filter(Boolean).join(" · ")}</span>
+                  <span className="text-ink">{fullName(c)}</span>
+                  <span className="block text-xs text-muted">{[c.email, c.phone, c.postcode].filter(Boolean).join(" · ")}</span>
                 </Td>
                 <Td>{c.jobTitle ?? "—"}</Td>
                 <Td>
                   <Badge tone={c.status === "ACTIVE" ? "ok" : c.status === "ONBOARDING" ? "info" : "muted"}>{c.status}</Badge>
                 </Td>
-                <Td>{missing.length ? <Badge tone="bad">{missing.map((m) => m.label).join(", ").toUpperCase()}</Badge> : <Badge tone="ok">CLEAR</Badge>}</Td>
+                <Td>{missing.length ? <Badge tone="bad" raw>{`${missing.map((m) => m.label).join(", ")} missing`}</Badge> : <Badge tone="ok">CLEAR</Badge>}</Td>
                 <Td>
                   {c.teams.map((t) => (
                     <Link key={t.id} href={`/workforce/teams/${t.packageId}`} className={`${linkClass} mr-2 text-xs`}>

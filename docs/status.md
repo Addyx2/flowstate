@@ -63,6 +63,7 @@ Core (D18 step 1) is built and runs against Postgres with a demo seed.
 | Date | Tool | Branch | Summary |
 |---|---|---|---|
 | 27 Aug – 1 Oct 2026 | — | `main` | Scaffold: Next.js app, voice webhook, Honor module, add-ons sidebar |
+| 27 Nov 2026 | Claude Code (cloud) | `claude/flowstate-no-cqc-w3j841` → `main` | Redesign (D21): warm editorial look, new Watchboard charts; merged to main |
 | 26 Nov 2026 | Claude Code (cloud) | `claude/flowstate-no-cqc-w3j841` | Deployed preview on Vercel with a new Neon database (London); fresh AUTH_SECRET |
 | 26 Nov 2026 | Claude Code (cloud) | `claude/flowstate-no-cqc-w3j841` | D20: registered Flowstate in Aultrum ID (aultrum-id branch); postcodes.io kept; praise only for involved parties |
 | 26 Nov 2026 | Claude Code (cloud) | `claude/flowstate-no-cqc-w3j841` | Built Core (D19): Prisma foundation, Workforce, Shifts, Watchboard + Qualifiers, Links, Carer API v1, Assist; tests and CI |

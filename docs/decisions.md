@@ -131,3 +131,13 @@ good rapport runs alongside and refines them later without blocking v1.
 - **Postcode lookups via postcodes.io stay** (only the postcode is sent) for travel distance.
 - **Praise is visible only to the parties involved**: the carer praised and the
   agency's coordinators. Never to the rest of the team, and never ranked.
+
+### D21 — Visual design: warm editorial (27 Nov 2026)
+Replaces the dark "Obsidian Precision" look. Dark sidebar on a warm off-white
+canvas, white rounded cards, serif headings (Newsreader) with Inter for text,
+sentence-case labels, quiet hairline and bar charts, black primary buttons.
+Tokens live in `app/globals.css` (`@theme`); pages use token classes
+(`bg-card`, `text-muted`, `border-line`…), never raw hex. Inspired by a
+reference layout the founder shared; no other product's name or branding is
+used. Charts never rank carers (Peak fairness rules). `docs/design/` designs
+refine this as they arrive.

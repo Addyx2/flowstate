@@ -40,19 +40,19 @@ export default async function ManagePage({ searchParams }: { searchParams: Promi
         title="Manage shifts"
         intro={`Week of ${fmtDay(from)}${filterName ? ` · ${filterName}` : ""}`}
         actions={
-          <div className="flex gap-4 font-mono text-[11px]">
+          <div className="flex gap-4 text-[13px]">
             <Link className={linkClass} href={q(offset - 1)}>
-              ← PREVIOUS
+              ← Previous
             </Link>
             <Link className={linkClass} href={q(0)}>
-              THIS WEEK
+              This week
             </Link>
             <Link className={linkClass} href={q(offset + 1)}>
-              NEXT →
+              Next →
             </Link>
             {filterName ? (
               <Link className={linkClass} href={`?week=${offset}`}>
-                CLEAR FILTER
+                Clear filter
               </Link>
             ) : null}
           </div>
@@ -116,7 +116,7 @@ export default async function ManagePage({ searchParams }: { searchParams: Promi
             <tr key={s.id}>
               <Td>
                 {fmtDay(s.startAt)}
-                <span className="block text-xs text-[#8a8a8a]">
+                <span className="block text-xs text-muted">
                   {fmtTime(s.startAt)}–{fmtTime(s.endAt)}
                 </span>
               </Td>
@@ -124,7 +124,7 @@ export default async function ManagePage({ searchParams }: { searchParams: Promi
                 <Link href={`?week=${offset}&package=${s.packageId}`} className={linkClass}>
                   {s.package.name}
                 </Link>
-                {s.jobRole ? <span className="block text-xs text-[#8a8a8a]">{s.jobRole.name}</span> : null}
+                {s.jobRole ? <span className="block text-xs text-muted">{s.jobRole.name}</span> : null}
               </Td>
               <Td>
                 {s.carer ? (
@@ -137,28 +137,28 @@ export default async function ManagePage({ searchParams }: { searchParams: Promi
               </Td>
               <Td>
                 <Badge tone={STATUS_TONE[s.status]}>{s.status}</Badge>
-                {s.cancelledBy ? <span className="block text-xs text-[#8a8a8a]">by {s.cancelledBy.toLowerCase()}</span> : null}
+                {s.cancelledBy ? <span className="block text-xs text-muted">by {s.cancelledBy.toLowerCase()}</span> : null}
               </Td>
               <Td>
-                {missed ? <Badge tone="bad">NOT CHECKED IN</Badge> : lateMins === null ? <span className="text-[#5a5a5a]">—</span> : lateMins > 10 ? <Badge tone="warn">{lateMins} MIN LATE</Badge> : <Badge tone="ok">ON TIME</Badge>}
+                {missed ? <Badge tone="bad">NOT CHECKED IN</Badge> : lateMins === null ? <span className="text-faint">—</span> : lateMins > 10 ? <Badge tone="warn">{lateMins} MIN LATE</Badge> : <Badge tone="ok">ON TIME</Badge>}
               </Td>
               <Td className="text-right">
                 {s.status === "BOOKED" || s.status === "OPEN" ? (
-                  <div className="flex justify-end gap-3 font-mono text-[10px] tracking-wider">
+                  <div className="flex justify-end gap-3 text-[13px]">
                     {s.status === "BOOKED" ? (
                       <form action={unassignAction}>
                         <input type="hidden" name="shiftId" value={s.id} />
-                        <button className="text-[#8a8a8a] hover:text-[#e2e2e2]">UNASSIGN</button>
+                        <button className="text-muted hover:text-ink">Unassign</button>
                       </form>
                     ) : (
-                      <Link href="/shifts/open" className="text-[#4a9eff]">
-                        FILL
+                      <Link href="/shifts/open" className="text-accent">
+                        Fill
                       </Link>
                     )}
                     <form action={cancelAction}>
                       <input type="hidden" name="shiftId" value={s.id} />
                       <input type="hidden" name="by" value="AGENCY" />
-                      <button className="text-[#8a8a8a] hover:text-[#ff9b9b]">CANCEL</button>
+                      <button className="text-muted hover:text-bad">Cancel</button>
                     </form>
                   </div>
                 ) : null}

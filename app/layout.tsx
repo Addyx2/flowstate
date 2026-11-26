@@ -1,19 +1,20 @@
 import type { Metadata } from "next";
+import { Inter, Newsreader } from "next/font/google";
+
 import "./globals.css";
 
+const inter = Inter({ subsets: ["latin"], variable: "--font-inter", display: "swap" });
+const newsreader = Newsreader({ subsets: ["latin"], variable: "--font-newsreader", display: "swap", style: ["normal", "italic"] });
+
 export const metadata: Metadata = {
-  title: "Flowstate",
-  description: "AI-native social care platform.",
+  title: { default: "Flowstate", template: "%s · Flowstate" },
+  description: "Rota and carer coordination for home-care providers.",
 };
 
-export default function RootLayout({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
+export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en" className="dark">
-      <body className="bg-[#070708] text-[#e2e2e2] antialiased">{children}</body>
+    <html lang="en" className={`${inter.variable} ${newsreader.variable}`}>
+      <body className="bg-canvas font-sans text-ink antialiased">{children}</body>
     </html>
   );
 }

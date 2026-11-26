@@ -25,8 +25,8 @@ export function ActionForm({
   return (
     <form action={formAction} className={cn("space-y-3", className)}>
       {children}
-      {state.error ? <p className="text-sm text-[#ff9b9b]">{state.error}</p> : null}
-      {state.ok ? <p className="text-sm text-[#00e676]">{state.ok}</p> : null}
+      {state.error ? <p className="text-sm text-bad">{state.error}</p> : null}
+      {state.ok ? <p className="text-sm text-ok">{state.ok}</p> : null}
       <button type="submit" disabled={pending} className={buttonClass}>
         {pending ? "Saving…" : submit}
       </button>

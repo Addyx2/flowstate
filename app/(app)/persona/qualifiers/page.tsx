@@ -23,10 +23,10 @@ export default async function QualifiersPage() {
         {layers.map((l) => (
           <section key={l.id} id={l.id}>
             <div className="mb-2 flex items-baseline gap-3">
-              <h2 className="text-xl font-light">{l.name}</h2>
+              <h2 className="font-serif text-[22px]">{l.name}</h2>
               <Badge tone={l.flags.length ? "warn" : "ok"}>{l.flags.length ? `${l.flags.length} FLAGGED` : "CLEAR"}</Badge>
             </div>
-            <p className="mb-3 text-sm text-[#8a8a8a]">{l.measures}</p>
+            <p className="mb-3 text-sm text-muted">{l.measures}</p>
             {l.flags.length ? (
               <Table head={["", "Who", "Why", "What to do"]}>
                 {l.flags.map((f) => (
@@ -38,7 +38,7 @@ export default async function QualifiersPage() {
                       </Link>
                     </Td>
                     <Td>{f.reason}</Td>
-                    <Td className="text-[#8a8a8a]">{f.action}</Td>
+                    <Td className="text-muted">{f.action}</Td>
                   </tr>
                 ))}
               </Table>
@@ -48,7 +48,7 @@ export default async function QualifiersPage() {
 
         <Card>
           <Label>RAPPORT ACROSS EVERY TEAM — {RAPPORT_RULES_VERSION.toUpperCase()}</Label>
-          <p className="mb-3 text-sm text-[#8a8a8a]">
+          <p className="mb-3 text-sm text-muted">
             Pattern recognition over the last eight weeks: visits together, praise, punctuality, missed visits, swaps, offers, complaints, change-of-carer requests, your feedback and travel distance. Below {RAPPORT_LOW} is flagged. A prompt for you, never a verdict — no rankings are shown to carers.
           </p>
           <Table head={["Pairing", "Rapport", "Because"]}>
@@ -63,7 +63,7 @@ export default async function QualifiersPage() {
                 <Td>
                   <Badge tone={p.rapport.score < RAPPORT_LOW ? "warn" : p.rapport.score >= 70 ? "ok" : "muted"}>{p.rapport.score}</Badge>
                 </Td>
-                <Td className="text-xs text-[#a0a0a0]">{p.rapport.reasons.join(" · ")}</Td>
+                <Td className="text-xs text-muted">{p.rapport.reasons.join(" · ")}</Td>
               </tr>
             ))}
           </Table>

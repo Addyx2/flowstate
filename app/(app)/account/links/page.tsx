@@ -34,7 +34,7 @@ export default async function LinksPage() {
                 <Td>
                   <Badge tone="info">{LINK_LABEL[l.kind].toUpperCase()}</Badge>
                   <span className="mt-1 block">{l.purpose}</span>
-                  <span className="text-xs text-[#8a8a8a]">
+                  <span className="text-xs text-muted">
                     Made {ago(l.createdAt)} · expires {fmtDate(l.expiresAt)}
                   </span>
                 </Td>
@@ -47,7 +47,7 @@ export default async function LinksPage() {
                   {status === "LIVE" ? (
                     <form action={revokeLink}>
                       <input type="hidden" name="linkId" value={l.id} />
-                      <button className="font-mono text-[10px] tracking-wider text-[#8a8a8a] hover:text-[#ff9b9b]">REVOKE</button>
+                      <button className="text-[13px] text-muted hover:text-bad">Revoke</button>
                     </form>
                   ) : null}
                 </Td>
@@ -69,9 +69,9 @@ export default async function LinksPage() {
               </select>
             </LinkMaker>
           ) : (
-            <p className="text-sm text-[#8a8a8a]">Every carer has joined.</p>
+            <p className="text-sm text-muted">Every carer has joined.</p>
           )}
-          <p className="mt-3 text-xs text-[#8a8a8a]">Praise links are made on each Package&apos;s page; shift requests on Open shifts.</p>
+          <p className="mt-3 text-xs text-muted">Praise links are made on each Package&apos;s page; shift requests on Open shifts.</p>
         </Card>
       </div>
     </Page>

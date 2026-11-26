@@ -43,8 +43,8 @@ Everyone signs in with **Aultrum ID**. Menus are assembled by role.
 - Nothing sensitive in notifications. Access ends the moment a carer leaves a
   package. Sensitive views are audit-logged. Carers can download their data.
 - "View as teammate" for coordinators, logged.
-- Design system "Obsidian Precision": `#070708` background, `#4a9eff` accent,
-  JetBrains Mono for labels. Tokens to ship as JSON so a native app can reuse them.
+- Design: warm editorial (D21) — dark sidebar, warm canvas, white cards, serif
+  headings. Tokens in `app/globals.css`.
 
 ## Roadmap
 

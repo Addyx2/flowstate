@@ -30,19 +30,19 @@ export function LinkMaker({
       <button type="submit" disabled={pending} className={children ? buttonClass : ghostButtonClass}>
         {pending ? "Making…" : submit}
       </button>
-      {state.error ? <p className="text-sm text-[#ff9b9b]">{state.error}</p> : null}
+      {state.error ? <p className="text-sm text-bad">{state.error}</p> : null}
       {state.url ? (
-        <div className="flex flex-wrap items-center gap-2 border border-[#4a9eff]/40 bg-[#4a9eff]/5 p-2">
-          <code className="min-w-0 flex-1 break-all text-xs text-[#e2e2e2]">{state.url}</code>
-          {state.ok ? <span className="font-mono text-[10px] text-[#a0a0a0]">{state.ok}</span> : null}
+        <div className="flex flex-wrap items-center gap-2 border border-accent/30 bg-accent-soft p-2">
+          <code className="min-w-0 flex-1 break-all text-xs text-ink">{state.url}</code>
+          {state.ok ? <span className="text-[13px] text-muted">{state.ok}</span> : null}
           <button
             type="button"
-            className="font-mono text-[10px] tracking-wider text-[#4a9eff]"
+            className="label-title text-[13px] text-accent"
             onClick={() => {
               navigator.clipboard?.writeText(state.url!).then(() => setCopied(true), () => setCopied(false));
             }}
           >
-            {copied ? "COPIED" : "COPY"}
+            {copied ? "Copied" : "Copy"}
           </button>
         </div>
       ) : null}

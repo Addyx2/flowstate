@@ -18,26 +18,26 @@ function EdgeIcon({ d }: { d: string }) {
 export default function PeakPage() {
   return (
     <main className="px-6 md:px-16 py-12 max-w-6xl mx-auto">
-      <p className="font-mono text-[10px] tracking-widest text-[#00e676] mb-2">
+      <p className="label-title text-[13px] text-ok mb-2">
         ELEMENTS // PEAK
       </p>
-      <h1 className="text-3xl md:text-4xl font-light mb-2">Recognition that pays.</h1>
-      <p className="text-[#a0a0a0] mb-12 max-w-2xl">
+      <h1 className="font-serif text-[36px] mb-2">Recognition that pays.</h1>
+      <p className="text-muted mb-12 max-w-2xl">
         An Aultrum add-on that plugs into any product — Flowstate or Pleasant —
         turning approved shifts into cashable recognition without touching the care data model.
       </p>
 
       <div className="grid md:grid-cols-2 gap-4">
         {FEATURES.map((f) => (
-          <div key={f.label} className="border border-[#2a2a2a] bg-[#111111] p-6">
+          <div key={f.label} className="border border-line bg-card p-6">
             <EdgeIcon d={f.icon} />
-            <div className="font-mono text-[10px] text-[#00e676] mt-4 mb-2">{f.label}</div>
-            <p className="text-sm text-[#a0a0a0]">{f.desc}</p>
+            <div className="text-[13px] text-ok mt-4 mb-2">{f.label}</div>
+            <p className="text-sm text-muted">{f.desc}</p>
           </div>
         ))}
       </div>
 
-      <div className="border border-dashed border-[#2a2a2a] p-6 mt-8 text-[#a0a0a0] font-mono text-xs">
+      <div className="border border-dashed border-line p-6 mt-8 text-muted text-[13px]">
         STATUS: AVAILABLE — READY FOR THE POINTS LEDGER
       </div>
     </main>
