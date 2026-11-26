@@ -4,6 +4,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 
+import { logoutAction } from "@/app/login/actions";
 import { groupForPath, NAV_GROUPS, NAVIGATION, type NavGroup, type NavSection } from "@/lib/navigation";
 
 function cn(...classes: (string | false | undefined)[]) {
@@ -26,7 +27,7 @@ const linkClass = (active: boolean) =>
 
 const STORAGE_KEY = "flowstate.sidebar.group";
 
-export function AppSidebar() {
+export function AppSidebar({ user }: { user: { name: string; role: string; agency: string } }) {
   const pathname = usePathname();
   const isActive = (href: string) => pathname === href || pathname.startsWith(`${href}/`);
 
@@ -54,6 +55,8 @@ export function AppSidebar() {
       // storage unavailable: the choice lasts for this page only
     }
   };
+
+  const visible = (s: NavSection) => !s.adminOnly || user.role === "ADMIN";
 
   const renderSection = (section: NavSection) =>
     section.href ? (
@@ -103,10 +106,17 @@ export function AppSidebar() {
         ))}
       </div>
 
-      {NAVIGATION.filter((s) => s.group === group).map(renderSection)}
+      {NAVIGATION.filter((s) => s.group === group && visible(s)).map(renderSection)}
 
       <div className="mt-auto border-t border-[#2a2a2a] pt-5">
-        {NAVIGATION.filter((s) => !s.group).map(renderSection)}
+        {NAVIGATION.filter((s) => !s.group && visible(s)).map(renderSection)}
+        <div className="mt-4 px-2">
+          <p className="truncate text-xs text-[#e2e2e2]">{user.name}</p>
+          <p className="truncate font-mono text-[9px] tracking-wider text-[#5a5a5a]">{user.agency.toUpperCase()}</p>
+          <form action={logoutAction}>
+            <button type="submit" className="mt-2 font-mono text-[10px] tracking-wider text-[#8a8a8a] hover:text-[#e2e2e2]">SIGN OUT</button>
+          </form>
+        </div>
       </div>
     </nav>
   );

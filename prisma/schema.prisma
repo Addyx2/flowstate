@@ -1,0 +1,422 @@
+// Flowstate data model. Logistics and workforce only: nothing here describes
+// the health, needs or condition of a person receiving care (docs/scope.md).
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum Role {
+  ADMIN
+  COORDINATOR
+  CARER
+}
+
+enum CarerStatus {
+  ONBOARDING
+  ACTIVE
+  INACTIVE
+}
+
+enum CheckKind {
+  DBS
+  RIGHT_TO_WORK
+  TRAINING
+  REFERENCE
+}
+
+enum PackageKind {
+  CARE_RECEIVER
+  CARE_HOME
+}
+
+enum ShiftStatus {
+  OPEN
+  BOOKED
+  COMPLETED
+  CANCELLED
+}
+
+enum CancelledBy {
+  AGENCY
+  CLIENT
+  CARER
+}
+
+enum RequestKind {
+  SHIFT
+  SWAP
+  TIME_OFF
+}
+
+enum RequestStatus {
+  PENDING
+  APPROVED
+  DECLINED
+}
+
+enum PraiseFrom {
+  KEY_PERSON
+  TEAMMATE
+  COORDINATOR
+}
+
+enum LinkKind {
+  PRAISE
+  SHIFT_REQUEST
+  CARER_INVITE
+}
+
+// Rapport and the other Layers learn from these (docs/spec/persona.md, D17).
+enum SignalKind {
+  PRAISE
+  SHIFT_COMPLETED
+  ON_TIME
+  LATE
+  NO_SHOW
+  SWAP_OFF
+  OFFER_ACCEPTED
+  OFFER_DECLINED
+  COMPLAINT
+  CHANGE_CARER_ASKED
+  COORDINATOR_FEEDBACK
+}
+
+model Agency {
+  id        String   @id @default(cuid())
+  name      String
+  createdAt DateTime @default(now())
+
+  users        User[]
+  carers       Carer[]
+  jobRoles     JobRole[]
+  packages     Package[]
+  shifts       Shift[]
+  rotas        Rota[]
+  requests     ShiftRequest[]
+  praise       Praise[]
+  links        Link[]
+  signals      Signal[]
+  auditEvents  AuditEvent[]
+  assistAsks   AssistAction[]
+}
+
+model User {
+  id               String    @id @default(cuid())
+  agencyId         String
+  agency           Agency    @relation(fields: [agencyId], references: [id], onDelete: Cascade)
+  email            String    @unique
+  name             String
+  role             Role      @default(COORDINATOR)
+  passwordHash     String?
+  sessionVersion   Int       @default(0)
+  aultrumSub       String?   @unique
+  failedLoginCount Int       @default(0)
+  lockedUntil      DateTime?
+  lastLoginAt      DateTime?
+  deactivatedAt    DateTime?
+  createdAt        DateTime  @default(now())
+
+  carer Carer?
+}
+
+/// A job role the agency staffs, and the training it needs (Competence layer).
+model JobRole {
+  id               String   @id @default(cuid())
+  agencyId         String
+  agency           Agency   @relation(fields: [agencyId], references: [id], onDelete: Cascade)
+  name             String
+  requiredTraining String[]
+
+  shifts    Shift[]
+  rotaLines RotaLine[]
+
+  @@unique([agencyId, name])
+}
+
+model Carer {
+  id         String      @id @default(cuid())
+  agencyId   String
+  agency     Agency      @relation(fields: [agencyId], references: [id], onDelete: Cascade)
+  userId     String?     @unique
+  user       User?       @relation(fields: [userId], references: [id], onDelete: SetNull)
+  firstName  String
+  lastName   String
+  email      String?
+  phone      String?
+  jobTitle   String?
+  postcode   String?
+  lat        Float?
+  lng        Float?
+  status     CarerStatus @default(ONBOARDING)
+  /// Weekly hours limit for Shift Readiness (Working Time default 48).
+  maxWeeklyHours Int     @default(48)
+  /// Set when the carer joins this agency in the Aultrum carer app.
+  aultrumSub String?     @unique
+  createdAt  DateTime    @default(now())
+
+  checks   Check[]
+  teams    TeamMember[]
+  shifts   Shift[]
+  requests ShiftRequest[]
+  praise   Praise[]
+  signals  Signal[]
+  links    Link[]
+  rotaLines RotaLine[]
+
+  @@index([agencyId])
+}
+
+/// Worker checks (Compliance) and training records (Competence).
+model Check {
+  id         String    @id @default(cuid())
+  carerId    String
+  carer      Carer     @relation(fields: [carerId], references: [id], onDelete: Cascade)
+  kind       CheckKind
+  name       String
+  reference  String?
+  expiresAt  DateTime?
+  verifiedAt DateTime?
+  createdAt  DateTime  @default(now())
+
+  @@index([carerId])
+}
+
+/// A care receiver or a care home, with logistics only.
+model Package {
+  id                 String      @id @default(cuid())
+  agencyId           String
+  agency             Agency      @relation(fields: [agencyId], references: [id], onDelete: Cascade)
+  kind               PackageKind
+  /// Display name, e.g. "Mrs A." or "Oakwood House". Keep it short.
+  name               String
+  address            String?
+  postcode           String?
+  lat                Float?
+  lng                Float?
+  /// How to get in. Sensitive: never shown in links or notifications.
+  accessInstructions String?
+  /// Who pays, for invoicing (e.g. a council or self-funded).
+  fundingBody        String?
+  hourlyRate         Decimal?    @db.Decimal(8, 2)
+  active             Boolean     @default(true)
+  createdAt          DateTime    @default(now())
+
+  team       TeamMember[]
+  keyPersons KeyPerson[]
+  shifts     Shift[]
+  rotas      Rota[]
+  praise     Praise[]
+  signals    Signal[]
+  links      Link[]
+
+  @@index([agencyId])
+}
+
+model TeamMember {
+  id        String   @id @default(cuid())
+  packageId String
+  package   Package  @relation(fields: [packageId], references: [id], onDelete: Cascade)
+  carerId   String
+  carer     Carer    @relation(fields: [carerId], references: [id], onDelete: Cascade)
+  primary   Boolean  @default(false)
+  joinedAt  DateTime @default(now())
+
+  @@unique([packageId, carerId])
+}
+
+/// Family or friends around a Package. No account; they use praise links.
+model KeyPerson {
+  id           String   @id @default(cuid())
+  packageId    String
+  package      Package  @relation(fields: [packageId], references: [id], onDelete: Cascade)
+  name         String
+  relationship String?
+  email        String?
+  phone        String?
+  createdAt    DateTime @default(now())
+
+  links Link[]
+}
+
+model Shift {
+  id          String       @id @default(cuid())
+  agencyId    String
+  agency      Agency       @relation(fields: [agencyId], references: [id], onDelete: Cascade)
+  packageId   String
+  package     Package      @relation(fields: [packageId], references: [id], onDelete: Cascade)
+  carerId     String?
+  carer       Carer?       @relation(fields: [carerId], references: [id], onDelete: SetNull)
+  jobRoleId   String?
+  jobRole     JobRole?     @relation(fields: [jobRoleId], references: [id], onDelete: SetNull)
+  rotaId      String?
+  rota        Rota?        @relation(fields: [rotaId], references: [id], onDelete: SetNull)
+  startAt     DateTime
+  endAt       DateTime
+  status      ShiftStatus  @default(OPEN)
+  cancelledBy CancelledBy?
+  /// Visit check-in/out (call monitoring), from the carer app.
+  checkInAt   DateTime?
+  checkOutAt  DateTime?
+  breakMins   Int          @default(0)
+  breakStartedAt DateTime?
+  carerSignedAt  DateTime?
+  createdAt   DateTime     @default(now())
+
+  requests ShiftRequest[]
+  links    Link[]
+
+  @@index([agencyId, startAt])
+  @@index([carerId, startAt])
+}
+
+/// A repeating weekly pattern for a Package.
+model Rota {
+  id        String   @id @default(cuid())
+  agencyId  String
+  agency    Agency   @relation(fields: [agencyId], references: [id], onDelete: Cascade)
+  packageId String
+  package   Package  @relation(fields: [packageId], references: [id], onDelete: Cascade)
+  name      String
+  active    Boolean  @default(true)
+  createdAt DateTime @default(now())
+
+  lines  RotaLine[]
+  shifts Shift[]
+}
+
+model RotaLine {
+  id        String   @id @default(cuid())
+  rotaId    String
+  rota      Rota     @relation(fields: [rotaId], references: [id], onDelete: Cascade)
+  /// 0 = Monday … 6 = Sunday
+  weekday   Int
+  /// "08:00"
+  startTime String
+  endTime   String
+  jobRoleId String?
+  jobRole   JobRole? @relation(fields: [jobRoleId], references: [id], onDelete: SetNull)
+  carerId   String?
+  carer     Carer?   @relation(fields: [carerId], references: [id], onDelete: SetNull)
+}
+
+/// A carer asking for a shift, a swap or time off.
+model ShiftRequest {
+  id          String        @id @default(cuid())
+  agencyId    String
+  agency      Agency        @relation(fields: [agencyId], references: [id], onDelete: Cascade)
+  carerId     String
+  carer       Carer         @relation(fields: [carerId], references: [id], onDelete: Cascade)
+  kind        RequestKind
+  shiftId     String?
+  shift       Shift?        @relation(fields: [shiftId], references: [id], onDelete: Cascade)
+  startAt     DateTime?
+  endAt       DateTime?
+  note        String?
+  status      RequestStatus @default(PENDING)
+  decidedById String?
+  decidedAt   DateTime?
+  createdAt   DateTime      @default(now())
+
+  @@index([agencyId, status])
+}
+
+/// Praise for a carer. Rapport uses who, where and whether positive — never health detail.
+model Praise {
+  id        String     @id @default(cuid())
+  agencyId  String
+  agency    Agency     @relation(fields: [agencyId], references: [id], onDelete: Cascade)
+  carerId   String
+  carer     Carer      @relation(fields: [carerId], references: [id], onDelete: Cascade)
+  packageId String?
+  package   Package?   @relation(fields: [packageId], references: [id], onDelete: SetNull)
+  from      PraiseFrom
+  fromName  String
+  message   String
+  createdAt DateTime   @default(now())
+}
+
+/// Anything published as a link (docs/spec/links.md).
+model Link {
+  id           String     @id @default(cuid())
+  agencyId     String
+  agency       Agency     @relation(fields: [agencyId], references: [id], onDelete: Cascade)
+  kind         LinkKind
+  tokenHash    String     @unique
+  purpose      String
+  createdById  String
+  packageId    String?
+  package      Package?   @relation(fields: [packageId], references: [id], onDelete: Cascade)
+  keyPersonId  String?
+  keyPerson    KeyPerson? @relation(fields: [keyPersonId], references: [id], onDelete: Cascade)
+  shiftId      String?
+  shift        Shift?     @relation(fields: [shiftId], references: [id], onDelete: Cascade)
+  carerId      String?
+  carer        Carer?     @relation(fields: [carerId], references: [id], onDelete: Cascade)
+  expiresAt    DateTime
+  revokedAt    DateTime?
+  lastOpenedAt DateTime?
+  uses         Int        @default(0)
+  createdAt    DateTime   @default(now())
+
+  @@index([agencyId])
+}
+
+/// One recorded signal for the Layers (D17).
+model Signal {
+  id        String     @id @default(cuid())
+  agencyId  String
+  agency    Agency     @relation(fields: [agencyId], references: [id], onDelete: Cascade)
+  kind      SignalKind
+  carerId   String
+  carer     Carer      @relation(fields: [carerId], references: [id], onDelete: Cascade)
+  packageId String?
+  package   Package?   @relation(fields: [packageId], references: [id], onDelete: Cascade)
+  value     Float?
+  note      String?
+  at        DateTime   @default(now())
+
+  @@index([agencyId, carerId, packageId])
+}
+
+model AuditEvent {
+  id         String   @id @default(cuid())
+  agencyId   String
+  agency     Agency   @relation(fields: [agencyId], references: [id], onDelete: Cascade)
+  actorId    String?
+  actorEmail String?
+  action     String
+  summary    String
+  targetType String?
+  targetId   String?
+  metadata   Json?
+  ip         String?
+  createdAt  DateTime @default(now())
+
+  @@index([agencyId, createdAt])
+}
+
+/// A change Assist proposed. Held on the server so a client can't approve
+/// something Assist never proposed.
+model AssistAction {
+  id        String   @id @default(cuid())
+  agencyId  String
+  agency    Agency   @relation(fields: [agencyId], references: [id], onDelete: Cascade)
+  userId    String
+  tool      String
+  input     Json
+  summary   String
+  status    String   @default("PROPOSED") // PROPOSED | DONE | DECLINED | FAILED
+  result    String?
+  createdAt DateTime @default(now())
+}
+
+model ServiceKey {
+  name      String   @id
+  value     String
+  createdAt DateTime @default(now())
+}
