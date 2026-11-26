@@ -1,6 +1,6 @@
 # Spec — Persona (Flowstate's AI functions)
 
-_Source: 26 Nov 2026 (D14–D16)._
+_Source: 26 Nov 2026 (D14–D17)._
 
 Persona has its own list in the sidebar, side by side with Flowstate and
 Elements (see `spec/navigation.md`).
@@ -42,7 +42,7 @@ The full detail for each layer lives on the Qualifiers page.
 Rapport qualifies care **socio-technically**: it learns from patterns in how
 people work together, not from one score. Praise is one signal among many.
 
-**Candidate signals** — _which are in v1 to confirm_:
+**Signals — all in v1** (D17):
 
 | Signal | From |
 |---|---|
@@ -53,6 +53,7 @@ people work together, not from one score. Praise is one signal among many.
 | How quickly carers accept offers for that Package | Pushbots, offers |
 | Coordinator feedback on a pairing | Flowstate |
 | Complaints or changes of carer asked for | Flowstate |
+| Travel distance between the carer and the Package | Directory / Packages (postcodes) |
 
 **Rules for Rapport**
 1. **Signals describe the relationship and the work, never the care
@@ -65,6 +66,15 @@ people work together, not from one score. Praise is one signal among many.
 4. **No rankings or leaderboards** of carers (Peak fairness rules).
 5. **Patterns sharpen over time** as outcomes are recorded (e.g. a pairing that
    lasted vs one that broke down), with human review of what the AI learns.
+
+**How v1 does it (move fast).** Every signal except praise is a by-product of
+running shifts, so v1 adds no data entry. v1:
+- records each signal as a dated **event** from day one (the data is the asset);
+- scores Rapport with **simple, explainable rules** ("Rapport v0") — e.g.
+  continuity, on-time rate, praise count, swap-off requests, distance;
+- shows the reasons, never a bare number.
+The research on what makes good rapport runs alongside and improves the rules
+later; it doesn't block v1. Rule versions are named so results can be compared.
 
 ## Directives
 
@@ -99,5 +109,4 @@ never grants new permissions.
 
 ## Open questions
 
-1. Which Rapport signals are in v1 (table above)? Any other socio-technical signals to add?
-2. How should a watch notify — in Flowstate only, email, or text?
+1. How should a watch notify — in Flowstate only, email, or text?

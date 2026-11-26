@@ -89,3 +89,8 @@ Rapport builds on pattern recognition across socio-technical signals about how
 carers and Packages work together. Praise is one signal among many. Signals
 describe the relationship and the work, never the care receiver's health; every
 pattern is explained and reviewed by a person. Spec: `spec/persona.md`.
+
+### D17 — All Rapport signals in v1, plus travel distance; v0 rules first (26 Nov 2026)
+Every listed Rapport signal is in v1, plus travel distance. v1 records signals as
+events and scores with simple, explainable rules; research on the foundations of
+good rapport runs alongside and refines them later without blocking v1.

@@ -35,7 +35,7 @@ software references → Paper designs, into `docs/design/`. Then:
 
 ## Open questions
 
-- Persona: which Rapport signals are in v1; how watches notify (`spec/persona.md`).
+- Persona: how watches notify (`spec/persona.md`).
 - Links: v1 link kinds; can links be forwarded (`spec/links.md`).
 - Account pinned under every list, or Flowstate list only (`spec/navigation.md`).
 
@@ -52,6 +52,7 @@ software references → Paper designs, into `docs/design/`. Then:
 | Date | Tool | Branch | Summary |
 |---|---|---|---|
 | 27 Aug – 1 Oct 2026 | — | `main` | Scaffold: Next.js app, voice webhook, Honor module, add-ons sidebar |
+| 26 Nov 2026 | Claude Code (cloud) | `claude/flowstate-no-cqc-w3j841` | D17: all Rapport signals + travel distance in v1; Rapport v0 = explainable rules over recorded events |
 | 26 Nov 2026 | Claude Code (cloud) | `claude/flowstate-no-cqc-w3j841` | D16: Rapport as pattern recognition; candidate signals and rules in `spec/persona.md` |
 | 26 Nov 2026 | Claude Code (cloud) | `claude/flowstate-no-cqc-w3j841` | D15: four Layers, per-user directives, `spec/links.md`; sidebar toggle Flowstate / Persona / Elements |
 | 26 Nov 2026 | Claude Code (cloud) | `claude/flowstate-no-cqc-w3j841` | Persona section (D14): Assist, Pushbots, Qualifiers, Associate; Qualifier cards on Watchboard; `spec/persona.md` |
