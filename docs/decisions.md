@@ -121,3 +121,13 @@ good rapport runs alongside and refines them later without blocking v1.
 - **Links** are stored hashed, expire, can be revoked, and show only what their
   purpose needs (shift requests: time, area, setting, role).
 - The old Twilio voice routes and Honor APIs were removed (Gateway lives in Canvas, D13/D18).
+
+### D20 — Aultrum ID registration, postcodes, praise visibility (26 Nov 2026)
+- **Flowstate is registered in Aultrum ID** as built-in product `aid_flowstate`
+  (`https://flowstate.aultrum.co.uk`), and as an Aultrum app connector, so
+  coordinators sign in with Aultrum ID, carers see Flowstate shifts in the
+  Aultrum carer app, and Flowstate can make carer invites. Change made in
+  `aultrum-id` (branch `claude/flowstate-no-cqc-w3j841`); live once merged and deployed.
+- **Postcode lookups via postcodes.io stay** (only the postcode is sent) for travel distance.
+- **Praise is visible only to the parties involved**: the carer praised and the
+  agency's coordinators. Never to the rest of the team, and never ranked.

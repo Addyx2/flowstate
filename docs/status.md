@@ -9,7 +9,7 @@ Core (D18 step 1) is built and runs against Postgres with a demo seed.
 | Area | Where | State |
 |---|---|---|
 | Foundation | `prisma/`, `lib/auth.ts`, `lib/audit.ts`, `middleware.ts` | **Done** — sessions, roles (Admin, Coordinator, Carer), lockout, audit log; ported from Pleasant |
-| Sign-in with Aultrum ID | `lib/aultrum-id.ts`, `app/api/auth/aultrum/*`, `/.well-known/jwks.json` | **Built, not live** — Flowstate isn't registered as a product in Aultrum ID yet (`aid_flowstate`); password sign-in works meanwhile |
+| Sign-in with Aultrum ID | `lib/aultrum-id.ts`, `app/api/auth/aultrum/*`, `/.well-known/jwks.json` | **Built; registered in Aultrum ID** (D20, `aultrum-id` branch `claude/flowstate-no-cqc-w3j841`) — live once that's merged and both are deployed |
 | Sidebar | `docs/spec/navigation.md`, `lib/navigation.ts` | **Done** — Flowstate / Persona / Elements lists, Account pinned |
 | Directory | `/workforce/directory` | **Done** |
 | Onboarding | `/workforce/onboarding` | **Done** — checks and training, ready-to-work gate |
@@ -18,7 +18,7 @@ Core (D18 step 1) is built and runs against Postgres with a demo seed.
 | Watchboard | `/watchboard` | **Done** — today's visits, late/missed, open, requests, praise, Layer cards |
 | Qualifiers | `/persona/qualifiers`, `lib/qualifiers.ts` | **Done** — Competence, Compliance, Shift Readiness, Rapport v0 (D17) |
 | Links | `/account/links`, `/l/[token]`, `lib/links.ts` | **Done** — praise, shift request (agency answers), carer invite (needs Aultrum ID) |
-| Carer API v1 | `app/api/carer/v1/*`, `lib/carer/*` | **Done** — matches the shared contract; live once Aultrum ID knows Flowstate |
+| Carer API v1 | `app/api/carer/v1/*`, `lib/carer/*` | **Done** — matches the shared contract; Flowstate is an Aultrum app connector (D20) |
 | Assist | `/persona/assist`, `lib/assist.ts`, `app/api/assist` | **Done** — needs `ANTHROPIC_API_KEY`; proposals wait for confirmation |
 | Pushbots, Associate | `/persona/*` | Placeholder (D18 step 3) |
 | Office, Supply | `/office/*`, `/supply/*` | Placeholder (D18 step 2) |
@@ -28,7 +28,7 @@ Core (D18 step 1) is built and runs against Postgres with a demo seed.
 
 ## Next
 
-1. **Register Flowstate in Aultrum ID** (`aid_flowstate`, `https://flowstate.aultrum.co.uk`) so sign-in, carer invites and the carer app work live. That's a change in the `aultrum-id` repo.
+1. **Merge the Aultrum ID registration** (`aultrum-id`, branch `claude/flowstate-no-cqc-w3j841`) and deploy it.
 2. **Deploy**: Vercel project + Postgres; set `AUTH_SECRET`, `ANTHROPIC_API_KEY`; run migrations.
 3. **Designs** (D11) refine the screens as they arrive in `docs/design/`.
 4. **Office and Supply** (D18 step 2), then **Associate** and Pushbots (step 3).
@@ -36,8 +36,6 @@ Core (D18 step 1) is built and runs against Postgres with a demo seed.
 
 ## Open questions
 
-- Postcode lookups use postcodes.io (only the postcode is sent) for travel distance. OK to keep, or use another source?
-- Praise text is shown to coordinators and the carer; Rapport uses only who, where and that it was given. Should families' praise be visible to the whole team?
 
 - Persona: how watches notify (`spec/persona.md`).
 - Links: v1 link kinds; can links be forwarded (`spec/links.md`).
@@ -55,6 +53,7 @@ Core (D18 step 1) is built and runs against Postgres with a demo seed.
 | Date | Tool | Branch | Summary |
 |---|---|---|---|
 | 27 Aug – 1 Oct 2026 | — | `main` | Scaffold: Next.js app, voice webhook, Honor module, add-ons sidebar |
+| 26 Nov 2026 | Claude Code (cloud) | `claude/flowstate-no-cqc-w3j841` | D20: registered Flowstate in Aultrum ID (aultrum-id branch); postcodes.io kept; praise only for involved parties |
 | 26 Nov 2026 | Claude Code (cloud) | `claude/flowstate-no-cqc-w3j841` | Built Core (D19): Prisma foundation, Workforce, Shifts, Watchboard + Qualifiers, Links, Carer API v1, Assist; tests and CI |
 | 26 Nov 2026 | Claude Code (cloud) | `claude/flowstate-no-cqc-w3j841` | D18: build order (Core → Office + Supply → Associate); Admin → Office; Gateway via API only |
 | 26 Nov 2026 | Claude Code (cloud) | `claude/flowstate-no-cqc-w3j841` | D17: all Rapport signals + travel distance in v1; Rapport v0 = explainable rules over recorded events |
