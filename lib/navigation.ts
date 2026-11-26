@@ -112,7 +112,7 @@ export const NAVIGATION: NavSection[] = [
       { href: "/account/settings", label: "Settings", purpose: "Agency settings." },
       { href: "/account/integrations", label: "Integrations", purpose: "Connected systems and APIs." },
       { href: "/account/organisation", label: "Organisation", purpose: "Your organisation's details, team and roles." },
-      { href: "/account/links", label: "Links", purpose: "Publish anything as a link: a shift request to an agency, a carer invite, a praise link for a family, and more." },
+      { href: "/account/links", label: "Links", purpose: "Publish anything as a link: a shift request to an agency, a carer invite, a praise link for a family, and more.", built: true },
     ],
   },
 ];
