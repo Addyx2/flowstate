@@ -1,40 +1,43 @@
 # Status
 
-_Last updated: 26 Nov 2026. Update this page at the end of every session._
+_Last updated: 26 Nov 2026 (Core built). Update this page at the end of every session._
 
 ## Built (in this repo)
 
-Everything below is a **UI mock-up with hardcoded sample data** unless marked.
+Core (D18 step 1) is built and runs against Postgres with a demo seed.
 
-| Area | Path | State |
+| Area | Where | State |
 |---|---|---|
-| Home (module links) | `app/page.tsx` | Mock |
-| Sidebar (D12) | `docs/spec/navigation.md`, `lib/navigation.ts`, `components/AppSidebar.tsx` | **Done** — Workforce, Shifts, Supply, three toggleable lists — Flowstate, Persona, Elements — with Account pinned (D12–D15). Unbuilt pages are a "Not built yet" placeholder (`app/(app)/[...slug]`). `/dashboard` redirects to `/watchboard` |
-| Honor: home, Live CV, Chorals, My Jobs | `app/honor/*` | Mock (one sample carer). **Not in brief v1.3** — see open questions |
-| Elements: Gateway, Peak, hub | `app/(app)/elements/*` | Marketing copy only; no Canvas connection. `/addons` redirects to `/elements` |
-| Roadmap | `app/(app)/roadmap/page.tsx`, `lib/features.ts` | Renders launch vs out-of-scope functions |
-| Voice webhook | `app/api/voice/*` | **Works** with Twilio + Anthropic keys; emergency keywords route to 999/111. Uses an old model id (`claude-3-5-sonnet-latest`). Superseded by Gateway on Canvas (D8) |
-| Honor APIs | `app/api/honor/*` | Written against Postgres; tables never created; unused by UI |
-| Call log | `app/api/calls`, `lib/db.ts` | `/api/calls` discards data; `logCall` never called |
-| Schema | `db/schema.sql` | Draft; not applied. Doesn't yet have Directory/Package per brief |
+| Foundation | `prisma/`, `lib/auth.ts`, `lib/audit.ts`, `middleware.ts` | **Done** — sessions, roles (Admin, Coordinator, Carer), lockout, audit log; ported from Pleasant |
+| Sign-in with Aultrum ID | `lib/aultrum-id.ts`, `app/api/auth/aultrum/*`, `/.well-known/jwks.json` | **Built, not live** — Flowstate isn't registered as a product in Aultrum ID yet (`aid_flowstate`); password sign-in works meanwhile |
+| Sidebar | `docs/spec/navigation.md`, `lib/navigation.ts` | **Done** — Flowstate / Persona / Elements lists, Account pinned |
+| Directory | `/workforce/directory` | **Done** |
+| Onboarding | `/workforce/onboarding` | **Done** — checks and training, ready-to-work gate |
+| Teams (Packages) | `/workforce/teams`, `/workforce/teams/[id]` | **Done** — logistics only, team with Rapport, key persons, praise links, pairing feedback |
+| Shifts | `/shifts/rotas`, `/open`, `/manage`, `/requests`; `lib/shifts.ts` | **Done** — generate weeks from rotas, explained suggestions, Compliance gate, clash checks |
+| Watchboard | `/watchboard` | **Done** — today's visits, late/missed, open, requests, praise, Layer cards |
+| Qualifiers | `/persona/qualifiers`, `lib/qualifiers.ts` | **Done** — Competence, Compliance, Shift Readiness, Rapport v0 (D17) |
+| Links | `/account/links`, `/l/[token]`, `lib/links.ts` | **Done** — praise, shift request (agency answers), carer invite (needs Aultrum ID) |
+| Carer API v1 | `app/api/carer/v1/*`, `lib/carer/*` | **Done** — matches the shared contract; live once Aultrum ID knows Flowstate |
+| Assist | `/persona/assist`, `lib/assist.ts`, `app/api/assist` | **Done** — needs `ANTHROPIC_API_KEY`; proposals wait for confirmation |
+| Pushbots, Associate | `/persona/*` | Placeholder (D18 step 3) |
+| Office, Supply | `/office/*`, `/supply/*` | Placeholder (D18 step 2) |
+| Elements | `/elements/*` | Marketing pages; not connected to Canvas yet |
+| Honor, Roadmap | `app/honor/*`, `/roadmap` | Old mock-ups, not in the sidebar |
+| Tests and CI | `lib/*.test.ts`, `.github/workflows/ci.yml` | 10 tests: checks, Rapport, readiness, the carer contract and a carer's day, Assist's loop |
 
-Not built: Aultrum ID sign-in, Directory, Package, Shifts/rota, Carer API v1,
-Peak via Canvas, praise link, database, tests, CI.
+## Next
 
-## Next — build order (D18)
-
-1. **Core** — Directory, Packages + Teams, Shifts (Rotas, Open, Manage,
-   Request), Carer API v1 for the Aultrum carer app, Watchboard with the four
-   Layer cards (Rapport v0), Assist, praise link. Foundation from Pleasant:
-   Prisma/Postgres, sessions, roles, audit log, Aultrum ID sign-in; register
-   Flowstate with Aultrum ID.
-2. **Office** (Payroll, Invoice, Bid) **and Supply**.
-3. **Associate** and the rest of Persona.
-
-Gateway is built in Canvas; Flowstate only connects by API. Design work
-(`docs/design/`, D11) refines screens as it arrives.
+1. **Register Flowstate in Aultrum ID** (`aid_flowstate`, `https://flowstate.aultrum.co.uk`) so sign-in, carer invites and the carer app work live. That's a change in the `aultrum-id` repo.
+2. **Deploy**: Vercel project + Postgres; set `AUTH_SECRET`, `ANTHROPIC_API_KEY`; run migrations.
+3. **Designs** (D11) refine the screens as they arrive in `docs/design/`.
+4. **Office and Supply** (D18 step 2), then **Associate** and Pushbots (step 3).
+5. Peak via Canvas in Elements and the carer app's Peak tab.
 
 ## Open questions
+
+- Postcode lookups use postcodes.io (only the postcode is sent) for travel distance. OK to keep, or use another source?
+- Praise text is shown to coordinators and the carer; Rapport uses only who, where and that it was given. Should families' praise be visible to the whole team?
 
 - Persona: how watches notify (`spec/persona.md`).
 - Links: v1 link kinds; can links be forwarded (`spec/links.md`).
@@ -42,7 +45,6 @@ Gateway is built in Canvas; Flowstate only connects by API. Design work
 
 - Sidebar: two remaining questions in `spec/navigation.md` (which commissioner APIs Bid connects to first; keep/remove `/roadmap` and `/honor`).
 
-- Copy Pleasant's code and adapt it, or rebuild fresh to the brief?
 - Honor (Live CV, chorals, multi-job): fold into Teammates Profile + Peak, or remove?
 - Design deliverables still missing: tokens as JSON, component library, real
   screens, clickable prototypes. Wireframes still show expiring training on the
@@ -53,6 +55,7 @@ Gateway is built in Canvas; Flowstate only connects by API. Design work
 | Date | Tool | Branch | Summary |
 |---|---|---|---|
 | 27 Aug – 1 Oct 2026 | — | `main` | Scaffold: Next.js app, voice webhook, Honor module, add-ons sidebar |
+| 26 Nov 2026 | Claude Code (cloud) | `claude/flowstate-no-cqc-w3j841` | Built Core (D19): Prisma foundation, Workforce, Shifts, Watchboard + Qualifiers, Links, Carer API v1, Assist; tests and CI |
 | 26 Nov 2026 | Claude Code (cloud) | `claude/flowstate-no-cqc-w3j841` | D18: build order (Core → Office + Supply → Associate); Admin → Office; Gateway via API only |
 | 26 Nov 2026 | Claude Code (cloud) | `claude/flowstate-no-cqc-w3j841` | D17: all Rapport signals + travel distance in v1; Rapport v0 = explainable rules over recorded events |
 | 26 Nov 2026 | Claude Code (cloud) | `claude/flowstate-no-cqc-w3j841` | D16: Rapport as pattern recognition; candidate signals and rules in `spec/persona.md` |

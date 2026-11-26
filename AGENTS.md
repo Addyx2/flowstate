@@ -41,7 +41,14 @@ Documentation is part of the change, not a follow-up.
 
 ```bash
 npm install
-npm run dev        # http://localhost:3000
-npx tsc --noEmit   # typecheck
+npx prisma migrate deploy && npm run db:seed   # needs DATABASE_URL (see .env.example)
+npm run dev        # http://localhost:3000 — admin@flowstate.demo / flowstate123
+npm run typecheck
+npm test
 npm run build
 ```
+
+Booking rules live in `lib/shifts.ts` and the Layers in `lib/qualifiers.ts`:
+screens, Assist and the Carer API must all go through them. Never change
+`lib/contracts/aultrum-v1.ts` here alone — it's mirrored in Pleasant and
+Aultrum ID.

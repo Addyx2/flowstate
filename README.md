@@ -1,48 +1,61 @@
-# Flowstate (product)
+# Flowstate
+
+Rota and carer coordination for home-care providers — **a prototype**.
+Coordinators run carers, Packages and rotas here; carers use the shared
+Aultrum carer app. Flowstate holds no care records.
 
 **Start here:** [`AGENTS.md`](AGENTS.md) and [`docs/`](docs/README.md) — product, scope, status, decisions.
 
-AI-native social care product. Separated from the marketing site.
+## Stack
 
-- **Host:** Vercel
-- **Domain:** flowstate.aultrum.co.uk
-- **Stack:** Next.js (App Router) · TypeScript · Tailwind v4 · Vercel Postgres
-- **AI:** Claude (Anthropic) · ElevenLabs · Twilio
+Next.js (App Router) · TypeScript · Tailwind v4 · Prisma + Postgres ·
+Aultrum ID (OpenID Connect) · Claude (Assist)
 
-## Structure
+## Run it locally
 
-```
-app/
-  page.tsx            → product home
-  dashboard/          → operations command center
-  api/
-    health/           → health check
-    voice/incoming    → Twilio inbound webhook
-    voice/handle      → speech → Claude → TwiML
-    calls/            → call log persistence
-lib/db.ts             → Vercel Postgres helpers
+Needs Node 22 and Postgres 16.
+
+```bash
+cp .env.example .env     # set DATABASE_URL and AUTH_SECRET
+npm install
+npx prisma migrate deploy
+npm run db:seed          # demo agency: Northfield Home Care
+npm run dev              # http://localhost:3000
 ```
 
-## Local dev
+Demo sign-ins (password `flowstate123`): `admin@flowstate.demo` (Admin),
+`coordinator@flowstate.demo` (Coordinator).
 
-1. `cp .env.example .env` and fill in keys
-2. `npm install`
-3. `npm run dev`
+## Checks
 
-## Phasing (CQC)
+```bash
+npm run typecheck
+npm test                 # unit tests; the DB-backed ones need the seeded database
+npm run build
+```
 
-Phase 1 ships only functions that need no CQC registration. CQC-regulated
-functions (care plans, visit scheduling, care notes, eMAR, clinical triage,
-safeguarding) are pushed forward to Phase 2. See `lib/features.ts`, the
-`/roadmap` page, and `docs/scope.md`.
+CI (`.github/workflows/ci.yml`) runs all of these against a real Postgres.
 
-## Telephony webhook (Twilio)
+## Layout
 
-Point your Twilio number's "A CALL COMES IN" webhook to:
-`https://flowstate.aultrum.co.uk/api/voice/incoming`
+```
+app/(app)/            coordinator app (sidebar: Flowstate · Persona · Elements, Account)
+  workforce/          Directory, Onboarding, Teams (Packages)
+  shifts/             Rotas, Open, Manage, Request
+  watchboard/         today + the four Aultrum Layers as cards
+  persona/            Assist, Qualifiers (Pushbots, Associate: placeholders)
+  account/links/      everything published as a link
+app/l/[token]/        public link pages (praise, shift requests) — no login
+app/api/carer/v1/     Carer API v1 for the Aultrum carer app
+app/api/assist/       Assist
+lib/qualifiers.ts     Competence, Compliance, Shift Readiness, Rapport v0
+lib/shifts.ts         booking rules shared by screens, Assist and the Carer API
+lib/contracts/        shared Aultrum v1 contract (identical to Pleasant's)
+prisma/               schema, migrations, demo seed
+docs/                 the source of truth for what's being built
+```
 
-The voice pipeline: inbound call → greeting → capture speech → Claude response → TwiML.
+## Changing the database
 
-## Database
-
-Create the `calls` table via the Vercel Postgres SQL editor (see `lib/db.ts`).
+Edit `prisma/schema.prisma`, run `npm run db:migrate -- --name what_changed`,
+commit the schema and the migration together.

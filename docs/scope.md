@@ -11,6 +11,7 @@ data standard and an Assured Supplier List — Flowstate is not one.
 |---|---|---|
 | Shifts / rota | No | Workforce scheduling |
 | Directory (staff, contacts) | No | Personal data under UK GDPR, not care data |
+| Praise (praise links, Peak) | No | About the carer. Families are asked not to include health details; Rapport uses only who, where and that praise was given |
 | Peak (recognition, rewards) | No | Anything that pays out money early would be a financial-regulation question instead |
 | Teammates profile, Aultrum ID | No | Staff data. Carers can download their own data |
 | Teams messages, handover notes (v1.5) | **Careful** | "Running late", "cover needed" = fine. How someone is (meds, falls, mood) = care record |

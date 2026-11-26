@@ -105,3 +105,19 @@ good rapport runs alongside and refines them later without blocking v1.
   3. **Associate** (and the rest of Persona).
 - **Gateway is built in Canvas.** Flowstate doesn't build it; it only connects
   to it by API, like every platform.
+
+### D19 — How Core is built (26 Nov 2026)
+- **Foundation from Pleasant:** Prisma + Postgres, HMAC sessions, roles
+  (Admin, Coordinator, Carer), audit log, Aultrum ID sign-in. Carers don't sign
+  in to the web app; they use the Aultrum carer app (D10).
+- **One rules library** (`lib/shifts.ts`) for booking, cancelling, rotas and
+  requests, used by the screens, Assist and the Carer API alike. The
+  Compliance gate (DBS or right to work missing/expired) blocks a booking.
+- **Signals are recorded as events** as work happens (check-in, completion,
+  swaps, praise, feedback); Rapport v0 scores them with named, explainable rules.
+- **Assist** runs on the Messages API (`claude-opus-5-5`) with read tools and
+  `propose_*` tools; proposals are stored server-side and applied only when the
+  coordinator confirms. Refusal fallback on.
+- **Links** are stored hashed, expire, can be revoked, and show only what their
+  purpose needs (shift requests: time, area, setting, role).
+- The old Twilio voice routes and Honor APIs were removed (Gateway lives in Canvas, D13/D18).
