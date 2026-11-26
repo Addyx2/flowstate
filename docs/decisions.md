@@ -94,3 +94,14 @@ pattern is explained and reviewed by a person. Spec: `spec/persona.md`.
 Every listed Rapport signal is in v1, plus travel distance. v1 records signals as
 events and scores with simple, explainable rules; research on the foundations of
 good rapport runs alongside and refines them later without blocking v1.
+
+### D18 — Build order; Admin renamed Office; Gateway via API only (26 Nov 2026)
+- **Admin is now Office** (Payroll, Invoice, Bid), routes `/office/*`.
+- **Build order:**
+  1. **Core** — Directory and Packages + Teams; Shifts (Rotas, Open, Manage,
+     Request); Carer API v1 so the Aultrum carer app works; Watchboard with the
+     four Layer cards; Assist; the praise link.
+  2. **Office and Supply.**
+  3. **Associate** (and the rest of Persona).
+- **Gateway is built in Canvas.** Flowstate doesn't build it; it only connects
+  to it by API, like every platform.

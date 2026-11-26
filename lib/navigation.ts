@@ -82,14 +82,14 @@ export const NAVIGATION: NavSection[] = [
     ],
   },
   {
-    title: "Admin",
+    title: "Office",
     group: "flowstate",
     icon: "M12 3l8 3v5c0 5-3.4 8.2-8 10-4.6-1.8-8-5-8-10V6z",
     adminOnly: true,
     items: [
-      { href: "/admin/payroll", label: "Payroll", purpose: "Pay the agency's own carers." },
-      { href: "/admin/invoices", label: "Invoice", purpose: "Invoices from supply agencies, and invoices to councils and clients generated from Packages." },
-      { href: "/admin/bids", label: "Bid", purpose: "Bid for hospital-discharge packages and see which ones you can cover. Logistics only, no clinical detail." },
+      { href: "/office/payroll", label: "Payroll", purpose: "Pay the agency's own carers." },
+      { href: "/office/invoices", label: "Invoice", purpose: "Invoices from supply agencies, and invoices to councils and clients generated from Packages." },
+      { href: "/office/bids", label: "Bid", purpose: "Bid for hospital-discharge packages and see which ones you can cover. Logistics only, no clinical detail." },
     ],
   },
   {
@@ -97,7 +97,7 @@ export const NAVIGATION: NavSection[] = [
     group: "elements",
     icon: "M4 5h4a1 1 0 0 1 1 1v2a2 2 0 0 0 4 0V6a1 1 0 0 1 1-1h4v4h-2a2 2 0 0 0 0 4h2v4h-4a1 1 0 0 1-1-1v-2a2 2 0 0 0-4 0v2a1 1 0 0 1-1 1H4z",
     items: [
-      { href: "/elements/gateway", label: "Gateway", purpose: "Always-on contact centre.", built: true },
+      { href: "/elements/gateway", label: "Gateway", purpose: "Always-on contact centre, built in Canvas and connected by API.", built: true },
       { href: "/elements/peak", label: "Peak", purpose: "Recognition and rewards.", built: true },
     ],
   },

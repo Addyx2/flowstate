@@ -1,6 +1,6 @@
 # Spec — coordinator sidebar
 
-_Source: 26 Nov 2026 (D12–D15). Code: `lib/navigation.ts` renders this; if
+_Source: 26 Nov 2026 (D12–D18). Code: `lib/navigation.ts` renders this; if
 they differ, this file wins._
 
 Carers don't see this: they use the Aultrum carer app (D10).
@@ -26,9 +26,9 @@ bottom under every list.
 | **Supply** | Request | `/supply/request` | Request workforce from agencies on **Pleasant** (Supply API) and from the provider's own **Preferred Supply List** |
 | | Manage | `/supply/manage` | Requests made, agency workers booked, their timesheets |
 | **Watchboard** | — | `/watchboard` | The important parts of every feature in one view, including the **Qualifiers as sliding cards** (`spec/persona.md`) |
-| **Admin** | Payroll | `/admin/payroll` | Pay the agency's own carers |
-| | Invoice | `/admin/invoices` | **Two directions:** (1) invoices *from* supply agencies; (2) invoices *to* councils and clients, generated from Packages |
-| | Bid | `/admin/bids` | Bid for hospital-discharge packages. Connects to commissioners' systems and shows **what's attainable** with the agency's carers, area and hours |
+| **Office** | Payroll | `/office/payroll` | Pay the agency's own carers |
+| | Invoice | `/office/invoices` | **Two directions:** (1) invoices *from* supply agencies; (2) invoices *to* councils and clients, generated from Packages |
+| | Bid | `/office/bids` | Bid for hospital-discharge packages. Connects to commissioners' systems and shows **what's attainable** with the agency's carers, area and hours |
 
 ### Persona — the AI functions (`spec/persona.md`)
 
@@ -43,7 +43,7 @@ bottom under every list.
 
 | Item | Route | Purpose |
 |---|---|---|
-| Gateway | `/elements/gateway` | Always-on contact centre |
+| Gateway | `/elements/gateway` | Always-on contact centre. Built in Canvas; Flowstate only connects to it by API |
 | Peak | `/elements/peak` | Recognition and rewards; its praise feeds the Rapport layer |
 
 `/elements` is the hub for all Elements.
@@ -59,7 +59,7 @@ bottom under every list.
 
 ## Rules
 
-- Admin and Account are for admins only; the rest for coordinators and admins.
+- Office and Account are for admins only; the rest for coordinators and admins.
 - Every page not yet built shows its purpose and "Not built yet", never a 404.
 - **Packages and the care-record line:** a Package (care receiver or care home)
   holds logistics only — address, visit times, team, access instructions,

@@ -21,17 +21,18 @@ Everything below is a **UI mock-up with hardcoded sample data** unless marked.
 Not built: Aultrum ID sign-in, Directory, Package, Shifts/rota, Carer API v1,
 Peak via Canvas, praise link, database, tests, CI.
 
-## Next
+## Next — build order (D18)
 
-**Waiting on design work** (D11): wireframes → concept theory →
-software references → Paper designs, into `docs/design/`. Then:
+1. **Core** — Directory, Packages + Teams, Shifts (Rotas, Open, Manage,
+   Request), Carer API v1 for the Aultrum carer app, Watchboard with the four
+   Layer cards (Rapport v0), Assist, praise link. Foundation from Pleasant:
+   Prisma/Postgres, sessions, roles, audit log, Aultrum ID sign-in; register
+   Flowstate with Aultrum ID.
+2. **Office** (Payroll, Invoice, Bid) **and Supply**.
+3. **Associate** and the rest of Persona.
 
-1. Function map `docs/spec/functions.md`: every Pleasant function marked
-   Keep / Change / Drop / New for Flowstate.
-2. One spec per function in `docs/spec/`, from the designs.
-3. Build: Pleasant's foundation (Prisma/Postgres, sessions, roles, audit log,
-   Aultrum ID sign-in), the coordinator screens, and Carer API v1 for the
-   Aultrum carer app (D10). Register Flowstate with Aultrum ID.
+Gateway is built in Canvas; Flowstate only connects by API. Design work
+(`docs/design/`, D11) refines screens as it arrives.
 
 ## Open questions
 
@@ -52,6 +53,7 @@ software references → Paper designs, into `docs/design/`. Then:
 | Date | Tool | Branch | Summary |
 |---|---|---|---|
 | 27 Aug – 1 Oct 2026 | — | `main` | Scaffold: Next.js app, voice webhook, Honor module, add-ons sidebar |
+| 26 Nov 2026 | Claude Code (cloud) | `claude/flowstate-no-cqc-w3j841` | D18: build order (Core → Office + Supply → Associate); Admin → Office; Gateway via API only |
 | 26 Nov 2026 | Claude Code (cloud) | `claude/flowstate-no-cqc-w3j841` | D17: all Rapport signals + travel distance in v1; Rapport v0 = explainable rules over recorded events |
 | 26 Nov 2026 | Claude Code (cloud) | `claude/flowstate-no-cqc-w3j841` | D16: Rapport as pattern recognition; candidate signals and rules in `spec/persona.md` |
 | 26 Nov 2026 | Claude Code (cloud) | `claude/flowstate-no-cqc-w3j841` | D15: four Layers, per-user directives, `spec/links.md`; sidebar toggle Flowstate / Persona / Elements |

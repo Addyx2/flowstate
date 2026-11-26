@@ -12,7 +12,7 @@ Flowstate is a **prototype**: keep it simple and explainable.
 
 | Who | What they get |
 |---|---|
-| **Coordinators** (agency office) | Workforce, Shifts, Supply, Watchboard, Admin, Elements, Account — see `spec/navigation.md` (D12, D13) |
+| **Coordinators** (agency office) | Flowstate list (Workforce, Shifts, Supply, Watchboard, Office), Persona, Elements, Account — see `spec/navigation.md` |
 | **Carers** | The shared **Aultrum carer app**, also used by Pleasant carers. Flowstate feeds it through Carer API v1 (D10) |
 | **Key persons** (family) | A praise link (`spec/links.md`). No account in v1 |
 | **Care receivers** | Nothing in v1 |
@@ -60,7 +60,7 @@ v1 is **coordination only**: no compliance layer.
 ## Not in Flowstate
 
 - Running a staffing agency (supplying workers to others) — that is **Pleasant**.
-  Flowstate's Supply *requests* workers; Admin has Payroll and Invoice (D12).
+  Flowstate's Supply *requests* workers; Office has Payroll, Invoice and Bid (D18).
 - Gateway and Peak themselves — they run on Canvas; Flowstate shows them as
   Elements add-ons (D13).
 - Care notes, care plans, eMAR, clinical triage — see `scope.md`.
