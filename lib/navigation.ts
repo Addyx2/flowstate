@@ -28,6 +28,8 @@ export interface NavSection {
   /** Section with a single page (e.g. Watchboard) has no items. */
   href?: string;
   purpose?: string;
+  /** Single-page section with a real page. */
+  built?: boolean;
   adminOnly?: boolean;
   items?: NavItem[];
 }
@@ -38,9 +40,9 @@ export const NAVIGATION: NavSection[] = [
     group: "flowstate",
     icon: "M16 19v-1a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v1M9 10a3 3 0 1 0 0-6 3 3 0 0 0 0 6zM22 19v-1a4 4 0 0 0-3-3.9M16 4.1a3 3 0 0 1 0 5.8",
     items: [
-      { href: "/workforce/onboarding", label: "Onboarding", purpose: "Bring new carers in: application, checks and ready to work." },
-      { href: "/workforce/directory", label: "Directory", purpose: "Everyone: carers, care receivers, coordinators and key persons." },
-      { href: "/workforce/teams", label: "Teams", purpose: "The care team around each Package: a care receiver or a care home." },
+      { href: "/workforce/onboarding", label: "Onboarding", purpose: "Bring new carers in: application, checks and ready to work.", built: true },
+      { href: "/workforce/directory", label: "Directory", purpose: "Everyone: carers, care receivers, coordinators and key persons.", built: true },
+      { href: "/workforce/teams", label: "Teams", purpose: "The care team around each Package: a care receiver or a care home.", built: true },
     ],
   },
   {
@@ -48,10 +50,10 @@ export const NAVIGATION: NavSection[] = [
     group: "flowstate",
     icon: "M8 2v3M16 2v3M3 9h18M5 5h14a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2z",
     items: [
-      { href: "/shifts/rotas", label: "Rotas", purpose: "The weekly rota and repeating patterns." },
-      { href: "/shifts/open", label: "Open", purpose: "Shifts nobody is booked on yet." },
-      { href: "/shifts/manage", label: "Manage", purpose: "All shifts: create, change and cancel." },
-      { href: "/shifts/requests", label: "Request", purpose: "Requests from carers: shifts they want, swaps and time off." },
+      { href: "/shifts/rotas", label: "Rotas", purpose: "The weekly rota and repeating patterns.", built: true },
+      { href: "/shifts/open", label: "Open", purpose: "Shifts nobody is booked on yet.", built: true },
+      { href: "/shifts/manage", label: "Manage", purpose: "All shifts: create, change and cancel.", built: true },
+      { href: "/shifts/requests", label: "Request", purpose: "Requests from carers: shifts they want, swaps and time off.", built: true },
     ],
   },
   {
@@ -68,6 +70,7 @@ export const NAVIGATION: NavSection[] = [
     group: "flowstate",
     icon: "M3 4h7v7H3zM14 4h7v12h-7zM3 13h7v7H3zM14 17h7v3h-7z",
     href: "/watchboard",
+    built: true,
     purpose: "The important parts of every feature, in one view, with the Qualifiers as cards.",
   },
   {
@@ -77,7 +80,7 @@ export const NAVIGATION: NavSection[] = [
     items: [
       { href: "/persona/assist", label: "Assist", purpose: "Ask about your agency or get work done. Every change waits for your confirmation." },
       { href: "/persona/pushbots", label: "Pushbots", purpose: "Your agency's number that carers and office staff text." },
-      { href: "/persona/qualifiers", label: "Qualifiers", purpose: "Competence, Compliance, Shift Readiness and Rapport in full: scores, what's flagged and why." },
+      { href: "/persona/qualifiers", label: "Qualifiers", purpose: "Competence, Compliance, Shift Readiness and Rapport in full: scores, what's flagged and why.", built: true },
       { href: "/persona/associate", label: "Associate", purpose: "Routines, your own directives (e.g. \"tell me when Sarah and Mark have a better rapport\"), and qualifying Packages or workforces." },
     ],
   },

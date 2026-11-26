@@ -121,6 +121,8 @@ async function main() {
   const today = new Date(now);
   today.setHours(0, 0, 0, 0);
   const signals: { kind: SignalKind; carerId: string; packageId: string; at: Date; value?: number }[] = [];
+  const busy = new Map<number, [number, number][]>(); // carer → booked intervals, so nobody is double-booked
+  const isBusy = (c: number, a: Date, b: Date) => (busy.get(c) ?? []).some(([s, e]) => s < b.getTime() && e > a.getTime());
   for (let d = -21; d <= 7; d++) {
     for (const [p, pkg] of packages.entries()) {
       const slots = pkg.kind === "CARE_HOME" ? [["08:00", "20:00"]] : [["08:00", "09:00"], ["18:00", "19:00"]];
@@ -133,7 +135,10 @@ async function main() {
         const startAt = at(today, d, start!);
         const endAt = at(today, d, end!);
         const past = endAt < now;
-        const open = !past && d >= 2 && rand() < 0.15;
+        const clash = isBusy(carerIdx, startAt, endAt);
+        const open = clash || (!past && d >= 2 && rand() < 0.15);
+        if (!open) busy.set(carerIdx, [...(busy.get(carerIdx) ?? []), [startAt.getTime(), endAt.getTime()]]);
+        if (clash && past) continue;
         const late = past && (carerIdx === 3 ? rand() < 0.5 : rand() < 0.08);
         const lateMins = late ? 12 + Math.floor(rand() * 25) : Math.floor(rand() * 4);
         const noShow = past && carerIdx === 5 && rand() < 0.1;

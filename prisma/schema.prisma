@@ -361,6 +361,9 @@ model Link {
   revokedAt    DateTime?
   lastOpenedAt DateTime?
   uses         Int        @default(0)
+  /// What the recipient answered (e.g. an agency replying to a shift request).
+  response     String?
+  respondedAt  DateTime?
   createdAt    DateTime   @default(now())
 
   @@index([agencyId])

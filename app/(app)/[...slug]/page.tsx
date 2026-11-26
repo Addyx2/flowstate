@@ -6,7 +6,7 @@ import { findPage, NAVIGATION } from "@/lib/navigation";
 // Built pages get their own route folder, which takes precedence over this one.
 
 export function generateStaticParams() {
-  return NAVIGATION.flatMap((s) => [s.href, ...(s.items ?? []).filter((i) => !i.built).map((i) => i.href)])
+  return NAVIGATION.flatMap((s) => [s.built ? undefined : s.href, ...(s.items ?? []).filter((i) => !i.built).map((i) => i.href)])
     .filter((h): h is string => !!h)
     .map((href) => ({ slug: href.slice(1).split("/") }));
 }
