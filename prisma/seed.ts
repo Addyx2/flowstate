@@ -18,6 +18,11 @@ const at = (base: Date, days: number, hhmm: string) => {
 };
 
 async function main() {
+  // On deploys (SEED_IF_EMPTY=1) only seed a brand-new database; never wipe real data.
+  if (process.env.SEED_IF_EMPTY === "1" && (await prisma.agency.count()) > 0) {
+    console.log("Database already has data; skipping the demo seed.");
+    return;
+  }
   await prisma.agency.deleteMany();
   const agency = await prisma.agency.create({ data: { name: "Northfield Home Care" } });
   const hash = await bcrypt.hash("flowstate123", 10);
