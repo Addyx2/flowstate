@@ -1,6 +1,6 @@
 # Spec — Persona (Flowstate's AI functions)
 
-_Source: 26 Nov 2026 (D14, D15)._
+_Source: 26 Nov 2026 (D14–D16)._
 
 Persona has its own list in the sidebar, side by side with Flowstate and
 Elements (see `spec/navigation.md`).
@@ -35,7 +35,36 @@ The full detail for each layer lives on the Qualifiers page.
 | **Competence** | Skills fit between a carer and a Package's logistics and role | A carer booked on a role they have no training record for |
 | **Compliance** | Worker checks: DBS, right to work, training expiry. A gate — one failed check rules a booking out | An expired DBS on a carer booked next week |
 | **Shift Readiness** | Fatigue and capacity: overlapping shifts, long runs, working-time limits, travel between visits | A carer on a 13-hour day with no break |
-| **Rapport** | The bond between a carer and a Package, from **Peak praise** (families via praise links, teammates, coordinators) and continuity of the team | A Package that sees a new carer every week; praise for one carer dropping |
+| **Rapport** | The bond between a carer and a Package, found by **pattern recognition** across many signals (see below). Praise is one of them | A Package that sees a new carer every week; a carer who keeps asking to leave one Package |
+
+## Rapport — pattern recognition
+
+Rapport qualifies care **socio-technically**: it learns from patterns in how
+people work together, not from one score. Praise is one signal among many.
+
+**Candidate signals** — _which are in v1 to confirm_:
+
+| Signal | From |
+|---|---|
+| Praise for a carer on a Package (families, teammates, coordinators) | Peak, praise Links |
+| Continuity: how often the same carers return to a Package | Shifts |
+| Punctuality and attendance on that Package | Shifts / visit check-in |
+| Requests to leave, swap off or avoid a Package | Shifts → Request |
+| How quickly carers accept offers for that Package | Pushbots, offers |
+| Coordinator feedback on a pairing | Flowstate |
+| Complaints or changes of carer asked for | Flowstate |
+
+**Rules for Rapport**
+1. **Signals describe the relationship and the work, never the care
+   receiver's health.** Text such as praise is read only for who it praises and
+   whether it is positive; health details in it are not stored or used.
+2. **Explain every pattern.** "Rapport between Sarah and Package 12 is rising:
+   4 praises in 3 weeks, every visit on time, no swap requests."
+3. **A pattern is a prompt for a human, never a verdict.** Coordinators review;
+   no automatic removal of a carer from a Package on Rapport alone.
+4. **No rankings or leaderboards** of carers (Peak fairness rules).
+5. **Patterns sharpen over time** as outcomes are recorded (e.g. a pairing that
+   lasted vs one that broke down), with human review of what the AI learns.
 
 ## Directives
 
@@ -70,5 +99,5 @@ never grants new permissions.
 
 ## Open questions
 
-1. Rapport from praise: does praise text itself count, or only that praise was given (safer: praise is about the carer, but families may mention the care receiver's health)?
+1. Which Rapport signals are in v1 (table above)? Any other socio-technical signals to add?
 2. How should a watch notify — in Flowstate only, email, or text?

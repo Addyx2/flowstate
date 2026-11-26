@@ -83,3 +83,9 @@ scores the work, never the person receiving care. Spec: `spec/persona.md`.
 - **Sidebar:** Flowstate, Persona and Elements are three lists side by side,
   switched with a toggle. Supersedes Persona's placement in D14. Account is
   pinned under all three.
+
+### D16 — Rapport is pattern recognition (26 Nov 2026)
+Rapport builds on pattern recognition across socio-technical signals about how
+carers and Packages work together. Praise is one signal among many. Signals
+describe the relationship and the work, never the care receiver's health; every
+pattern is explained and reviewed by a person. Spec: `spec/persona.md`.
