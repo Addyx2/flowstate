@@ -78,7 +78,7 @@ export const NAVIGATION: NavSection[] = [
     group: "persona",
     icon: "M12 3l1.9 5.1L19 10l-5.1 1.9L12 17l-1.9-5.1L5 10l5.1-1.9zM19 15l.8 2.2L22 18l-2.2.8L19 21l-.8-2.2L16 18l2.2-.8z",
     items: [
-      { href: "/persona/assist", label: "Assist", purpose: "Ask about your agency or get work done. Every change waits for your confirmation." },
+      { href: "/persona/assist", label: "Assist", purpose: "Ask about your agency or get work done. Every change waits for your confirmation.", built: true },
       { href: "/persona/pushbots", label: "Pushbots", purpose: "Your agency's number that carers and office staff text." },
       { href: "/persona/qualifiers", label: "Qualifiers", purpose: "Competence, Compliance, Shift Readiness and Rapport in full: scores, what's flagged and why.", built: true },
       { href: "/persona/associate", label: "Associate", purpose: "Routines, your own directives (e.g. \"tell me when Sarah and Mark have a better rapport\"), and qualifying Packages or workforces." },
